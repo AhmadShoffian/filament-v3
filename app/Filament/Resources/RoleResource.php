@@ -3,27 +3,25 @@
 namespace App\Filament\Resources;
 
 use Filament\Forms;
-use App\Models\Role;
-
 use Filament\Tables;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Spatie\Permission\Models\Role;
 use Illuminate\Database\Eloquent\Builder;
-use App\Filament\Resources\RoleResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\RoleResource\RelationManagers;
+use App\Filament\Resources\RoleResource\Pages;
 
 class RoleResource extends Resource
 {
     protected static ?string $model = Role::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-finger-print';
+    protected static ?string $navigationIcon = 'heroicon-o-collection'; // Pilih satu saja
 
     protected static ?int $navigationSort = 2;
-
 
     public static function form(Form $form): Form
     {
@@ -31,17 +29,19 @@ class RoleResource extends Resource
             ->schema([
                 Card::make()
                     ->schema([
-                        Forms\Components\TextInput::make('name')
+                        TextInput::make('name')
                             ->required()
                             ->maxLength(255)
                             ->unique(ignoreRecord: true)
                             ->label('Role Name'),
-                Select::make('permissions')
-                    ->multiple()
-                    ->relationship('permissions', 'name')
-                    ->preload()
-                    ->label('Permissions')
-                    ]),
+
+                        Select::make('permissions')
+                            ->multiple()
+                            ->relationship('permissions', 'name')
+                            ->preload()
+                            ->label('Permissions'),
+                    ])
+                    ->columns(1),
             ]);
     }
 
@@ -52,16 +52,24 @@ class RoleResource extends Resource
                 Tables\Columns\TextColumn::make('id')
                     ->sortable()
                     ->label('ID'),
+
                 Tables\Columns\TextColumn::make('name')
                     ->searchable()
                     ->sortable()
                     ->label('Role Name'),
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime('d-M-Y')
                     ->label('Created At'),
+
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->label('Updated At'),
+
+                Tables\Columns\TextColumn::make('guard_name')
+                    ->searchable()
+                    ->sortable()
+                    ->label('Guard Name'),
             ])
             ->filters([
                 //
@@ -74,14 +82,12 @@ class RoleResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -90,13 +96,13 @@ class RoleResource extends Resource
             'edit' => Pages\EditRole::route('/{record}/edit'),
         ];
     }
-    
+
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->where(
-            'name', '!=', 'Super Admin'
-        )->withoutGlobalScopes([
-            SoftDeletingScope::class,
-        ]);
+        return parent::getEloquentQuery()
+            ->where('name', '!=', 'Super Admin')
+            ->withoutGlobalScopes([
+                SoftDeletingScope::class,
+            ]);
     }
 }
