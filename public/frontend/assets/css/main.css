@@ -7308,6 +7308,45 @@ ALUR-TIKETING CSS
   visibility: visible;
 }
 
+
+
+
+/* page banner */
+
+
+.page-banner-section {
+  margin-top: 107px;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .page-banner-section {
+    margin-top: 94px;
+  }
+}
+
+.page-banner-section .banner-content h2 {
+  margin-bottom: 20px;
+}
+
+.page-banner-section .banner-content .page-breadcrumb nav ol {
+  background: none;
+  padding: 0;
+}
+
+.page-banner-section .banner-content .page-breadcrumb nav ol li {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.page-banner-section .banner-content .page-breadcrumb nav ol li::before {
+  color: #fff;
+}
+
+.page-banner-section .banner-content .page-breadcrumb nav ol li a {
+  color: #fff;
+}
+
 /*===========================
     13. Footer CSS 
 ===========================*/

@@ -2,22 +2,24 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\TicketResource\Pages;
-use App\Filament\Resources\TicketResource\RelationManagers\CommentsRelationManager;
-use App\Models\Priority;
-use App\Models\ProblemCategory;
-use App\Models\Ticket;
-use App\Models\TicketStatus;
+use Filament\Forms;
 use App\Models\Unit;
 use App\Models\User;
-use Filament\Forms;
-use Filament\Forms\Components\Card;
-use Filament\Resources\Form;
-use Filament\Resources\Resource;
-use Filament\Resources\Table;
 use Filament\Tables;
+use App\Models\Ticket;
+use App\Models\Priority;
+use App\Models\TicketStatus;
+use Filament\Resources\Form;
+use Filament\Resources\Table;
+use App\Models\ProblemCategory;
+use Filament\Resources\Resource;
+use Forms\Components\FileUpload;
+use Filament\Forms\Components\Card;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\TicketResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\TicketResource\RelationManagers\CommentsRelationManager;
 
 class TicketResource extends Resource
 {
@@ -81,6 +83,11 @@ class TicketResource extends Resource
                         ->columnSpan([
                             'sm' => 2,
                         ]),
+
+                    Forms\Components\FileUpload::make('image')
+                        ->label('Gambar')
+                        ->image()
+                        ->directory('tickets/attachments'),
 
                     Forms\Components\Placeholder::make('approved_at')
                         ->translateLabel()
@@ -167,6 +174,11 @@ class TicketResource extends Resource
                 Tables\Columns\TextColumn::make('ticketStatus.name')
                     ->label(__('Status'))
                     ->sortable(),
+
+                Tables\Columns\ImageColumn::make('image')
+                    ->label('Gambar')
+                    ->disk('public') // wajib jika gambar ada di storage
+                    ->width('100px'),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),

@@ -47,6 +47,7 @@ class Ticket extends Model
         'problem_category_id' => 'int',
         'ticket_statuses_id' => 'int',
         'responsible_id' => 'int',
+        'image' => 'string',
         'approved_at' => 'datetime',
         'solved_at' => 'datetime',
     ];
@@ -60,6 +61,7 @@ class Ticket extends Model
         'description',
         'ticket_statuses_id',
         'responsible_id',
+        'image',
         'approved_at',
         'solved_at',
     ];

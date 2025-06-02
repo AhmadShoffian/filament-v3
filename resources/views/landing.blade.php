@@ -157,7 +157,7 @@
                                         class="lni lni-lock-alt"></i> Login</a>
                                 <a href="{{ route('kirimcepat') }}" class="btn">Kirim cepat</a> --}}
                                 <a href="{{ route('portal.login') }}" class="login"><i class="lni lni-lock-alt"></i> Login</a>
-                                <a href="#" class="btn">Kirim cepat</a>
+                                <a href="{{ route('portal.kirimcepat') }}" class="btn">Kirim cepat</a>
 
                             </div>
                         </nav> <!-- navbar -->
@@ -170,7 +170,7 @@
 
         <!-- Start Hero Area -->
         <section class="hero-area style3" id="home">
-            <div class="hero-inner" style="background-image: url('{{ asset('/frontend/assets/img/carousel/Saraswati.png') }}');">
+            <div class="hero-inner" style="background-image: url('{{ asset('/frontend/assets/img/carousel/Saraswati.png') }}'); width: 100%; height: 100vh; background-size: cover; background-position: center;">
                 <div class="container">
                     <div class="row ">
                         <div class="col-lg-6 co-12">

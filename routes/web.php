@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\KirimCepatController;
 use App\Http\Controllers\Portal\AuthController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\Auth\SocialiteController;
@@ -31,9 +32,11 @@ Route::get('/auth/{provider}/callback', [SocialiteController::class, 'handleProv
 Route::prefix('portal')->group(function (){
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('portal.login');
     Route::post('/login', [AuthController::class, 'login']);
+
     Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
-    // Kirim email reset password
     Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+
+    Route::get('/kirim-cepat', [KirimCepatController::class, 'showKirimCepatForm'])->name('portal.kirimcepat');
 });
 
 Route::middleware('guest:portal')->group(function () {
