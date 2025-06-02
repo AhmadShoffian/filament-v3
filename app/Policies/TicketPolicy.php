@@ -22,6 +22,7 @@ class TicketPolicy
      */
     public function view(User $user, Ticket $ticket): bool
     {
+
         // The admin unit can view tickets that are assigned to their specific unit.
         if ($user->hasRole('Admin Unit')) {
             return $user->id == $ticket->owner_id || $ticket->unit_id == $user->unit_id;
@@ -29,6 +30,11 @@ class TicketPolicy
 
         // The staff unit can view tickets that have been assigned to them.
         if ($user->hasRole('Staff Unit')) {
+            return $user->id == $ticket->owner_id ||  $ticket->responsible_id == $user->id;
+        }
+
+        if( $user->hasRole('Staff Operator')) {
+            // The staff operator can view tickets that have been assigned to them.
             return $user->id == $ticket->owner_id ||  $ticket->responsible_id == $user->id;
         }
 

@@ -1,0 +1,27 @@
+//===================== client-logo section css 
+
+.client-logo-section {
+
+  .client-logo-wrapper {
+
+    .client-logo-carousel {
+
+      .client-logo {
+        padding: 10px;
+        text-align: center;
+        margin: auto;
+
+        img {
+          max-width: 220px;
+          width: 100%;
+          opacity: .3;
+          @include transition(.3s);
+
+          &:hover{
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+}

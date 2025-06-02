@@ -84,7 +84,7 @@ return [
     |--------------------------------------------------------------------------
     | Path to password reset Livewire component.
     */
-    "password_reset_component_path" => \JeffGreco13\FilamentBreezy\Http\Livewire\Auth\ResetPassword::class,
+    // "password_reset_component_path" => \JeffGreco13\FilamentBreezy\Http\Livewire\Auth\ResetPassword::class,
     /*
     |--------------------------------------------------------------------------
     | Path to email verification Livewire component.

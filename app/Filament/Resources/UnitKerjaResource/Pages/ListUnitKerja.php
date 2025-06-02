@@ -6,7 +6,7 @@ use App\Filament\Resources\UnitKerjaResource;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\ListRecords;
 
-class ListUnitKerjas extends ListRecords
+class ListUnitKerja extends ListRecords
 {
     protected static string $resource = UnitKerjaResource::class;
 

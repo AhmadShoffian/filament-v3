@@ -1,0 +1,210 @@
+/*===========================
+    04. About CSS 
+===========================*/
+
+.about-section {
+    background: $gray;
+    padding: 180px 0;
+    position: relative;
+
+    @media #{$md} {
+        padding: 120px 0;
+    }
+    @media #{$xs} {
+        padding: 120px 0;
+    }
+
+    .about-img-wrapper {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        width: 46%;
+        @include transform(translateY(-50%));
+
+        @media #{$md} {
+            position: relative;
+            top: 0;
+            @include transform(translateY(0));
+            width: 100%;
+            margin-bottom: 50px;
+        }
+        @media #{$xs} {
+            position: relative;
+            top: 0;
+            @include transform(translateY(0));
+            width: 100%;
+            margin-bottom: 50px;
+        }
+
+        img {
+            width: 100%;
+        }
+
+        .about-experience {
+            width: 300px;
+            border-radius: 27px;
+            background: linear-gradient(to top left, #3763eb 0%, #6f58e8 100%);
+            border: 5px solid #eff2f9;
+            padding: 40px 20px;
+            position: absolute;
+            right: -40px;
+            bottom: 10px;
+
+            @media #{$md} {
+                right: 40px;
+            }
+            @media #{$xs} {
+                right: 40px;
+            }
+
+            h3 {
+                font-size: 26px;
+                font-weight: 700;
+                color: $white;
+                margin-bottom: 15px;
+            }
+            p {
+                color: $white;
+            }
+        }
+    }
+
+    .about-content-wrapper {
+
+        .about-content {
+
+            .counter-up {
+                display: flex;
+                justify-content: space-between;
+                
+                @media #{$xs} {
+                    display: block;
+                }
+                @media #{$sm} {
+                    display: flex;
+                }
+
+                .counter {
+                    margin-right: 10px;
+
+                    &:last-child {
+                        margin-right: 0;
+                    }
+
+                    span {
+                        font-size: 40px;
+                        font-weight: 600;
+                        color: $theme-color;
+                        display: block;
+                        margin-bottom: 8px;
+                    }
+
+                    h4 {
+                        font-weight: 500;
+                        margin-bottom: 10px;
+                    }
+
+                    p {
+
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+.time-line {
+    position: relative;
+
+    .row {
+        position: relative;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        width: 2px;
+        height: 100%;
+        left: 50%;
+        top: 0;
+        background: $border-color;
+        z-index: -1;
+
+        @media #{$md} {
+            display: none;
+        }
+        @media #{$xs} {
+            display: none;
+        }
+    }
+
+    .box-icon-style {
+        width: 60px;
+        height: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        border: 1px solid $border-color;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        z-index: 2;
+        background-color: $white;
+        @include transform(translate(-50%, -50%));
+        @include transition(.3s);
+
+        @media #{$md} {
+            position: static;
+            @include transform(translate(0));
+            margin-bottom: 30px;
+        }
+        @media #{$xs} {
+            position: static;
+            @include transform(translate(0));
+            margin-bottom: 30px;
+        }
+
+        i {
+            @include transition(.3s);
+            font-size: 20px;
+            padding: 2px;
+            color: $theme-color;
+        }
+    }
+    .single-timeline {
+
+        @media #{$md} {
+            margin-bottom: 50px;
+        }
+        @media #{$xs} {
+            margin-bottom: 50px;
+        }
+
+        &:hover {
+            .box-icon-style {
+                background: $theme-bg;
+                color: $white;
+                border-color: transparent;
+
+                i {
+                    color: $white;
+                }
+            }
+        }
+
+        .timeline-img {
+
+            @media #{$md} {
+                margin-bottom: 30px;
+            }
+            @media #{$xs} {
+                margin-bottom: 30px;
+            }
+            img {
+                width: 100%;
+            }
+        }
+    }
+}

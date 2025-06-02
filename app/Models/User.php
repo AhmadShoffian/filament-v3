@@ -41,7 +41,8 @@ use Althinect\FilamentSpatieRolesPermissions\Concerns\HasSuperAdmin;
  * @property Collection|Comment[] $comments
  * @property Collection|Ticket[] $tickets
  */
-class User extends Authenticatable implements FilamentUser, MustVerifyEmail
+// implements FilamentUser, MustVerifyEmail
+class User extends Authenticatable 
 {
     use SoftDeletes, HasRoles, HasSuperAdmin, HasFactory, Notifiable;
     protected $table = 'users';
@@ -124,6 +125,7 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
     public function canAccessFilament(): bool
     {
         return auth()->user()->is_active;
+        // return $this->hasRole('Super Admin') || $this->hasRole('Admin Unit') || $this->hasRole('User');
     }
 
     /**

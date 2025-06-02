@@ -1,0 +1,125 @@
+/*===========================
+    13. Footer CSS 
+===========================*/
+.footer {
+    position: relative;
+    z-index: 2;
+    background: $gray;
+
+    .footer-widget {
+
+        .footer-desc {
+            line-height: 30px;
+        }
+
+        h4 {
+            margin-bottom: 35px;
+            font-weight: 500;
+
+            @media #{$lg} {
+                font-size: 22px;
+            }
+        }
+
+        ul.footer-links {
+            li {
+                a {
+                    color: $body-color;
+                    display: block;
+                    line-height: 35px;
+                    transition: all .3s;
+
+                    &:hover {
+                        color: $theme-color;
+                    }
+                }
+            }
+        }
+
+        ul {
+            padding-left: 20px;
+            li {
+                list-style: disc;
+            }
+        }
+        .footer-contact {
+            li {
+                p {
+                    line-height: 35px;
+                }
+            }
+        }
+
+        
+    }
+
+    .copyright-area {
+        border-top: 2px solid rgba($body-color, .44);
+        padding: 25px 0;
+        font-size: 16px;
+        position: relative;
+        z-index: 2;
+
+        p {
+            text-align: right;
+
+            @media #{$xs} {
+                font-size: 14px;
+                text-align: center;
+            }
+
+            @media #{$sm} {
+                font-size: 15px;
+            }
+
+            a {
+                color: $body-color;
+                
+                &:hover {
+                    color: $theme-color;
+                }
+            }
+        }
+    }
+
+}
+    .footer-social-links {
+        @media #{$xs} {
+            margin-bottom: 15px;
+        }
+
+        ul {
+            justify-content: flex-start;
+
+            @media #{$xs} {
+                justify-content: center;
+            }
+
+            li {
+                display: inline-block;
+
+                a {
+                    width: 45px;
+                    height: 45px;
+                    border-radius: 50%;
+                    text-align: center;
+                    line-height: 45px;
+                    background: rgba($body-color, .1);
+                    display: block;
+                    font-size: 18px;
+                    color: $body-color;
+                    margin-right: 15px;
+
+                    @media #{$xs} {
+                        padding: 0 7px;
+                        margin-right: 10px;
+                    }
+
+                    &:hover {
+                        background: $theme-bg;
+                        color: $white;
+                    }
+                }
+            }
+        }
+    }

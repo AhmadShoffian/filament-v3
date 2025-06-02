@@ -117,7 +117,7 @@ class TicketResource extends Resource
                         ->hidden(
                             fn () => !auth()
                                 ->user()
-                                ->hasAnyRole(['Super Admin', 'Admin Unit', 'Staff Unit']),
+                                ->hasAnyRole(['Super Admin', 'Admin Unit', 'Staff Unit', 'Staff Operator']),
                         ),
 
                     Forms\Components\Select::make('responsible_id')
@@ -130,7 +130,7 @@ class TicketResource extends Resource
                         ->hidden(
                             fn () => !auth()
                                 ->user()
-                                ->hasAnyRole(['Super Admin', 'Admin Unit']),
+                                ->hasAnyRole(['Super Admin', 'Admin Unit', 'Staff Operator']),
                         ),
 
                     Forms\Components\Placeholder::make('created_at')
@@ -220,6 +220,8 @@ class TicketResource extends Resource
                 if (auth()->user()->hasRole('Admin Unit')) {
                     $query->where('tickets.unit_id', auth()->user()->unit_id)->orWhere('tickets.owner_id', auth()->id());
                 } elseif (auth()->user()->hasRole('Staff Unit')) {
+                    $query->where('tickets.responsible_id', auth()->id())->orWhere('tickets.owner_id', auth()->id());
+                } else if (auth()->user()->hasRole('Staff Operator')) {
                     $query->where('tickets.responsible_id', auth()->id())->orWhere('tickets.owner_id', auth()->id());
                 } else {
                     $query->where('tickets.owner_id', auth()->id());

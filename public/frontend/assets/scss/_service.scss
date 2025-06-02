@@ -1,0 +1,50 @@
+/*===========================
+    05. Service CSS 
+===========================*/
+
+.service-section {
+
+    .service-box-style-2 {
+        padding: 0;
+        text-align: center;
+
+        .service-thumbnail {
+            img {
+                width: 100%;
+                border-radius: 10px 10px 0 0;
+            }
+        }
+        
+        .box-icon-style {
+            margin-left: auto;
+            margin-right: auto;
+            width: 54px;
+            height: 54px;
+            border: 2px solid $white;
+            font-size: 25px;
+            margin-top: -27px;
+            background: $white;
+            position: relative;
+            z-index: 9;
+
+            i {
+                @include background-clip($theme-bg);
+                @include transition(.3s);
+            }
+        }
+
+        &:hover {
+            .box-icon-style {
+                background: $theme-bg;
+
+                i {
+                    color: $white;
+                }
+            }
+        }
+
+        .box-content-style {
+            padding: 0 30px 35px;
+        }
+    }
+}

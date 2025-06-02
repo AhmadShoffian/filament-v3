@@ -14,6 +14,7 @@ class RolePolicy
     public function viewAny(User $user): bool
     {
         return $user->can('view-any Role');
+        // return $user->hasRole('super-admin');
     }
 
     /**
@@ -30,6 +31,7 @@ class RolePolicy
     public function create(User $user): bool
     {
         return $user->can('create Role');
+        // return $user->hasRole('super-admin');
     }
 
     /**
@@ -38,6 +40,7 @@ class RolePolicy
     public function update(User $user, Role $Role): bool
     {
         return $user->can('update Role');
+        // return $user->hasRole('super-admin');
     }
 
     /**
@@ -46,6 +49,7 @@ class RolePolicy
     public function delete(User $user, Role $Role): bool
     {
         return $user->can('delete Role');
+        // return $user->hasRole('super-admin');
     }
 
     /**

@@ -82,7 +82,7 @@ class UnitKerjaResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListUnitKerjas::route('/'),
+            'index' => Pages\ListUnitKerja::route('/'),
             'create' => Pages\CreateUnitKerja::route('/create'),
             'view' => Pages\ViewUnitKerja::route('/{record}'),
             'edit' => Pages\EditUnitKerja::route('/{record}/edit'),

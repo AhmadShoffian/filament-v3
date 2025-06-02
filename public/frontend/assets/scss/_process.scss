@@ -1,0 +1,58 @@
+/*===========================
+    06. Process CSS 
+===========================*/
+
+.process-section {
+
+    .process-img-wrapper {
+        position: relative;
+        z-index: 1;
+
+        &::before {
+            content: '';
+            position: absolute;
+            left: -100px;
+            bottom: -50px;
+            width: 463px;
+            height: 552px;
+            border-radius: 10px 10px 231px 231px;
+            background: linear-gradient(#f37da7 0%, #fed9b4 100%);
+            opacity: 0.1;
+        }
+
+        .process-img-top {
+            margin-bottom: 20px;
+            text-align: right;
+
+            @media #{$md} {
+                text-align: center;
+            }
+
+            .img-1 {
+                border-radius: 275px 275px 0 0;
+
+                @media #{$xs} {
+                    width: 100%;
+                }
+            }
+        }
+        .process-img-bottom {
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-end;
+
+            @media #{$md} {
+                justify-content: center;
+            }
+
+            .img-2 {
+                border-radius: 10px;
+                margin-right: 20px;
+                vertical-align: top;
+            }
+            .img-3 {
+                border-radius: 0 0 250px 250px;
+            }
+        }
+    }
+}
