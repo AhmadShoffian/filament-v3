@@ -38,7 +38,7 @@ class DashboardController extends Controller
         $request->validate([
             'name' => 'required|string|max:100',
             'email' => 'required|email|max:100',
-            'judul' => 'required|string|max:100',
+            'title' => 'required|string|max:100',
             'unit_kerja' => 'required|exists:unit_kerjas,id',
             'unit' => 'required|exists:units,id',
             'peran' => 'required|exists:perans,id',
@@ -60,12 +60,12 @@ class DashboardController extends Controller
             Ticket::create([
                 'name' => $request->name,
                 'email' => $request->email,
-                'judul' => $request->judul,
+                'title' => $request->title,
                 'unit_id' => $request->unit,
                 'peran_id' => $request->peran,
                 'unit_kerja_id' => $request->unit_kerja,
                 'problem_category_id' => $request->sub_category,
-                'req_description' => $request->description,
+                'description' => $request->description,
                 'lampiran' => $lampiranPaths, 
                 'ticket_statuses_id' => 1,
                 'priority_id' => $request->priority,

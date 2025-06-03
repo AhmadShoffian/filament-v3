@@ -134,7 +134,7 @@
                         </div>
                         <div class="input-box">
                             <label for="judul">Judul</label><span class="required"></span>
-                            <input type="text" name="judul" id="judul" class="required" placeholder="Masukkan Judul">
+                            <input type="text" name="title" id="title" class="required" placeholder="Masukkan Judul">
                         </div>
                     </div>
 
