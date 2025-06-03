@@ -43,6 +43,8 @@ class Ticket extends Model
     protected $casts = [
         'priority_id' => 'int',
         'unit_id' => 'int',
+        'peran_id' => 'int',
+        'unit_kerja_id' => 'int',
         'owner_id' => 'int',
         'problem_category_id' => 'int',
         'ticket_statuses_id' => 'int',
@@ -55,6 +57,8 @@ class Ticket extends Model
     protected $fillable = [
         'priority_id',
         'unit_id',
+        'peran_id',
+        'unit_kerja_id',
         'owner_id',
         'problem_category_id',
         'title',
@@ -135,4 +139,15 @@ class Ticket extends Model
     {
         return $this->hasMany(Comment::class, 'tiket_id');
     }
+
+    public function peran()
+    {
+        return $this->belongsTo(\App\Models\Peran::class);
+    }
+
+    public function unitKerja()
+    {
+        return $this->belongsTo(\App\Models\UnitKerja::class);
+    }
+
 }

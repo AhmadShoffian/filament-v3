@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KirimCepatController;
 use App\Http\Controllers\Portal\AuthController;
 use App\Http\Controllers\ResetPasswordController;
@@ -37,6 +38,10 @@ Route::prefix('portal')->group(function (){
     Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
 
     Route::get('/kirim-cepat', [KirimCepatController::class, 'showKirimCepatForm'])->name('portal.kirimcepat');
+    Route::get('portal/home/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('dashboard/create', [DashboardController::class, 'create'])->name('ticket.create');
+    Route::post('dashboard/create', [DashboardController::class, 'store'])->name('ticket.store');
+
 });
 
 Route::middleware('guest:portal')->group(function () {

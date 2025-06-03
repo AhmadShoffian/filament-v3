@@ -19,7 +19,7 @@ class AuthController extends Controller
 
         if (Auth::guard('portal')->attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('portal/dashboard');
+            return redirect()->route('dashboard'); 
         }
 
         return back()->withErrors([

@@ -6,8 +6,10 @@ use Filament\Forms;
 use App\Models\Unit;
 use App\Models\User;
 use Filament\Tables;
+use App\Models\Peran;
 use App\Models\Ticket;
 use App\Models\Priority;
+use App\Models\UnitKerja;
 use App\Models\TicketStatus;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
@@ -68,6 +70,19 @@ class TicketResource extends Resource
                         ->searchable()
                         ->required(),
 
+                    Forms\Components\Select::make('peran_id')
+                       ->label(__('Peran'))
+                        ->options(Peran::all()
+                            ->pluck('name', 'id'))
+                        ->searchable()
+                        ->required(),
+
+                    Forms\Components\Select::make('unit_kerja_id')
+                        ->label(__('Unit Kerja'))
+                        ->options(UnitKerja::all()
+                            ->pluck('name', 'id'))
+                        ->searchable()
+                        ->required(),
                     Forms\Components\TextInput::make('title')
                         ->label(__('Title'))
                         ->required()
@@ -175,6 +190,17 @@ class TicketResource extends Resource
                     ->label(__('Status'))
                     ->sortable(),
 
+                Tables\Columns\TextColumn::make('peran.name')
+                    ->label(__('Peran'))
+                    ->searchable()
+                    ->toggleable(),
+
+                Tables\Columns\TextColumn::make('unitKerja.name')
+                    ->label(__('Unit Kerja'))
+                    ->searchable()
+                    ->toggleable(),
+
+
                 Tables\Columns\ImageColumn::make('image')
                     ->label('Gambar')
                     ->disk('public') // wajib jika gambar ada di storage
@@ -220,29 +246,34 @@ class TicketResource extends Resource
      * If it is a Staff Unit, then display tickets based on the tickets they have created and the tickets assigned to them.
      * If it is a Regular User, then display tickets based on the tickets they have created.
      */
-    public static function getEloquentQuery(): Builder
-    {
-        return parent::getEloquentQuery()
-            ->where(function ($query) {
-                // Display all tickets to Super Admin
-                if (auth()->user()->hasRole('Super Admin')) {
-                    return;
-                }
+   public static function getEloquentQuery(): Builder
+        {
+            return parent::getEloquentQuery()
+                ->with(['peran', 'unitKerja']) // ✅ Tambahkan eager loading relasi di sini
+                ->where(function ($query) {
+                    // Display all tickets to Super Admin
+                    if (auth()->user()->hasRole('Super Admin')) {
+                        return;
+                    }
 
-                if (auth()->user()->hasRole('Admin Unit')) {
-                    $query->where('tickets.unit_id', auth()->user()->unit_id)->orWhere('tickets.owner_id', auth()->id());
-                } elseif (auth()->user()->hasRole('Staff Unit')) {
-                    $query->where('tickets.responsible_id', auth()->id())->orWhere('tickets.owner_id', auth()->id());
-                } else if (auth()->user()->hasRole('Staff Operator')) {
-                    $query->where('tickets.responsible_id', auth()->id())->orWhere('tickets.owner_id', auth()->id());
-                } else {
-                    $query->where('tickets.owner_id', auth()->id());
-                }
-            })
-            ->withoutGlobalScopes([
-                SoftDeletingScope::class,
-            ]);
+                    if (auth()->user()->hasRole('Admin Unit')) {
+                        $query->where('tickets.unit_id', auth()->user()->unit_id)
+                            ->orWhere('tickets.owner_id', auth()->id());
+                    } elseif (auth()->user()->hasRole('Staff Unit')) {
+                        $query->where('tickets.responsible_id', auth()->id())
+                            ->orWhere('tickets.owner_id', auth()->id());
+                    } else if (auth()->user()->hasRole('Staff Operator')) {
+                        $query->where('tickets.responsible_id', auth()->id())
+                            ->orWhere('tickets.owner_id', auth()->id());
+                    } else {
+                        $query->where('tickets.owner_id', auth()->id());
+                    }
+                })
+                ->withoutGlobalScopes([
+                    SoftDeletingScope::class,
+                ]);
     }
+
 
     public static function getPluralModelLabel(): string
     {
