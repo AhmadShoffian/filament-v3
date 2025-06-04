@@ -167,9 +167,6 @@
                     
                     <div class="form-group">
                         <div class="input-box">
-                            {{-- <label for="no_telepon">No. telepon</label><span class="required"></span>
-                            <input type="text" name="no_telepon" id="no_telepon" class="required" placeholder="Masukkan No. Telepon"> --}}
-
                            <label for="unit" class="mt-4">Unit</label><span class="required"></span>
                             <select id="unit" name="unit" class="form-select" required>
                                 <option value="">Pilih Unit</option>
@@ -214,7 +211,7 @@
                                 </div>
                                 <div class="upload-box">
                                     <span>Upload file</span>
-                                    <input type="file" name="lampiran[]" id="fileInput" accept=".png,.jpg,.jpeg,.pdf" onchange="previewFile()">
+                                    <input type="file" name="image" id="fileInput" accept=".png,.jpg,.jpeg,.pdf" onchange="previewFile()">
                                 </div>
                             </div>
                         </div>
