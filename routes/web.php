@@ -42,6 +42,9 @@ Route::prefix('portal')->group(function (){
         Route::get('portal/home/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('dashboard/create', [DashboardController::class, 'create'])->name('ticket.create');
         Route::post('dashboard/create', [DashboardController::class, 'store'])->name('ticket.store');
+        Route::get('dashboard/ticket/', [DashboardController::class, 'show'])->name('tickets.show');
+        Route::get('dashboard/ticket/{ticket}', [DashboardController::class, 'detail'])->name('tickets.detail');
+
     });
 
 });
