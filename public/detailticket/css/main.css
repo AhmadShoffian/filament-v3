@@ -6378,6 +6378,176 @@ blockquote span {
   font-size: 16px;
 }
 
+
+/*======================================
+	Contact CSS
+========================================*/
+.contact-us {
+  position: relative;
+  background-color: #F4F7FA;
+}
+
+.contact-us .inner-title {
+  font-size: 20px;
+  font-weight: 600;
+  border-bottom: 1px dashed #473BF0;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+}
+
+.contact-us .inner-content {
+  padding: 50px;
+  border-radius: 5px;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.contact-us .title {
+  margin-bottom: 30px;
+}
+
+.contact-us .contant-inner-title {
+  margin-bottom: 45px;
+}
+
+.contact-us .single-head {
+  position: relative;
+  z-index: 5;
+}
+
+.contact-us .single-info {
+  text-align: left;
+  margin-bottom: 30px;
+  padding-left: 70px;
+  position: relative;
+}
+
+.contact-us .single-info i {
+  font-size: 18px;
+  display: inline-block;
+  margin-right: 20px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 50px;
+  width: 50px;
+  display: block;
+  text-align: center;
+  background: #473BF0;
+  color: #fff;
+  line-height: 50px;
+  border-radius: 5px;
+}
+
+.contact-us .single-info ul {
+  display: inline-block;
+}
+
+.contact-us .single-info ul span {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.contact-us .single-info ul li:last-child {
+  margin-bottom: 0;
+}
+
+.contact-us .single-info ul li {
+  font-weight: 500;
+  display: inline-block;
+  font-size: 13px;
+  color: #081828;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.contact-us .single-info ul li a {
+  font-weight: 500;
+  display: inline-block;
+  font-size: 13px;
+  color: #081828;
+}
+
+.contact-us .single-info ul li a:hover {
+  color: #473BF0;
+}
+
+.contact-us .single-info .title {
+  margin-bottom: 10px;
+  font-weight: 500;
+  color: #fff;
+  font-size: 18px;
+}
+
+.contact-us .single-info .title span {
+  display: block;
+  font-size: 14px;
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+.contact-us .form-main {
+  margin-right: 50px;
+}
+
+.contact-us .form .form-group {
+  margin-bottom: 15px;
+  display: block;
+}
+
+.contact-us .form .form-group input {
+  height: 55px;
+  line-height: 55px;
+  width: 100%;
+  border: 1px solid #e6e2f5;
+  padding: 0px 20px;
+  color: #333;
+  border-radius: 0px;
+  font-weight: 400;
+  border-radius: 5px;
+}
+
+.contact-us .form .form-group textarea {
+  height: 180px;
+  width: 100%;
+  border: 1px solid #e6e2f5;
+  padding: 15px 20px;
+  color: #333;
+  border-radius: 0px;
+  resize: none;
+  font-weight: 400;
+  border-radius: 5px;
+}
+
+.contact-us .form .button {
+  margin: 0;
+}
+
+.contact-us .form .button .btn {
+  height: 50px;
+  border: none;
+}
+
+.map-section {
+  background-color: #fff;
+}
+
+.map-section .map-container {
+  -webkit-box-shadow: 0 10px 30px rgba(111, 111, 111, 0.1);
+          box-shadow: 0 10px 30px rgba(111, 111, 111, 0.1);
+  padding: 20px;
+  border-radius: 7px;
+}
+
+/*======================================
+	End Contact CSS
+========================================*/
+
+
+
 /*======================================
 	Footer CSS
 ========================================*/

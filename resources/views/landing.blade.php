@@ -158,7 +158,6 @@
                                 <a href="{{ route('kirimcepat') }}" class="btn">Kirim cepat</a> --}}
                                 <a href="{{ route('portal.login') }}" class="login"><i class="lni lni-lock-alt"></i> Login</a>
                                 <a href="{{ route('portal.kirimcepat') }}" class="btn">Kirim cepat</a>
-
                             </div>
                         </nav> <!-- navbar -->
                     </div>

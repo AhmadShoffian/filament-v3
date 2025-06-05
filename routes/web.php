@@ -38,6 +38,10 @@ Route::prefix('portal')->group(function (){
     Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
 
     Route::get('/kirim-cepat', [KirimCepatController::class, 'showKirimCepatForm'])->name('portal.kirimcepat');
+    Route::post('/kirim-cepat/store', [KirimCepatController::class, 'store'])->name('portal.kirimcepat.store');
+    Route::get('/kirim-cepat/view', [KirimCepatController::class, 'viewKirimCepat'])->name('portal.viewKirimCepat');
+    Route::get('kirim-cepat/kirim-cepat/{ticket}', [KirimCepatController::class, 'kcdetail'])->name('portal.kcdetail');
+
     Route::middleware(['auth:portal'])->group(function () {
         Route::get('/home/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('dashboard/create', [DashboardController::class, 'create'])->name('ticket.create');

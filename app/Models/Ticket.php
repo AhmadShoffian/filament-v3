@@ -60,6 +60,8 @@ class Ticket extends Model
         'peran_id',
         'unit_kerja_id',
         'owner_id',
+        'user_id',
+        'source',
         'problem_category_id',
         'title',
         'description',
