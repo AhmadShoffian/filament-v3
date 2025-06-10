@@ -150,9 +150,9 @@
                 @csrf
                 <div class="form-group">
                     <div class="input-box">
-                        <label for="name">Nama</label><span class="required"></span>
-                        <input type="text" name="name" id="name" class="required"
-                            placeholder="Masukkan Nama">
+                        <label for="username">Nama</label><span class="required"></span>
+                        <input type="text" name="username" id="username" class="required"
+                            placeholder="Masukkan Username">
                     </div>
                     <div class="input-box">
                         <label for="judul">Judul</label><span class="required"></span>

@@ -35,7 +35,7 @@ class KirimCepatController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:100',
+            'username' => 'required|string|max:100',
             'email' => 'required|email|max:100',
             'title' => 'required|string|max:100',
             'unit_kerja' => 'required|exists:unit_kerjas,id',
@@ -58,7 +58,7 @@ class KirimCepatController extends Controller
             $ownerId = auth('portal')->check() ? auth('portal')->id() : null;
 
             $ticket = Ticket::create([
-                'name' => $request->name,
+                'username' => $request->username,
                 'email' => $request->email,
                 'title' => $request->title,
                 'unit_id' => $request->unit,
@@ -93,7 +93,6 @@ class KirimCepatController extends Controller
 
     public function kcdetail(Ticket $ticket)
     {
-        $ticket = Ticket::findOrFail($ticket->id);
         return view('portal.kirimcepat.detail', compact('ticket'));
     }
 }

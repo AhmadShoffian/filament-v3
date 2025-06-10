@@ -406,9 +406,9 @@
                                                                             class="text-sm font-medium text-gray-500 flex items-center">
                                                                             <i
                                                                                 class="fas fa-signature text-emerald-400 mr-1.5 text-xs"></i>
-                                                                            Nama Desa
+                                                                            Nama 
                                                                         </dt>
-                                                                        <dd class="mt-1 text-gray-900">Desa Digital
+                                                                        <dd class="mt-1 text-gray-900">{{ $ticket->username }}
                                                                         </dd>
                                                                     </div>
                                                                     <div>
@@ -416,9 +416,9 @@
                                                                             class="text-sm font-medium text-gray-500 flex items-center">
                                                                             <i
                                                                                 class="fas fa-map text-emerald-400 mr-1.5 text-xs"></i>
-                                                                            Kecamatan
+                                                                            Email
                                                                         </dt>
-                                                                        <dd class="mt-1 text-gray-900">Kecamatan Contoh
+                                                                        <dd class="mt-1 text-gray-900">{{ $ticket->email }}
                                                                         </dd>
                                                                     </div>
                                                                     <div>
@@ -426,9 +426,9 @@
                                                                             class="text-sm font-medium text-gray-500 flex items-center">
                                                                             <i
                                                                                 class="fas fa-city text-emerald-400 mr-1.5 text-xs"></i>
-                                                                            Kabupaten
+                                                                            No Telepon
                                                                         </dt>
-                                                                        <dd class="mt-1 text-gray-900">Kabupaten Contoh
+                                                                        <dd class="mt-1 text-gray-900">087838658884
                                                                         </dd>
                                                                     </div>
                                                                     <div>
@@ -436,9 +436,9 @@
                                                                             class="text-sm font-medium text-gray-500 flex items-center">
                                                                             <i
                                                                                 class="fas fa-map-marked text-emerald-400 mr-1.5 text-xs"></i>
-                                                                            Provinsi
+                                                                            Peran
                                                                         </dt>
-                                                                        <dd class="mt-1 text-gray-900">Provinsi Contoh
+                                                                        <dd class="mt-1 text-gray-900">{{ $ticket->peran->name ?? '-' }}
                                                                         </dd>
                                                                     </div>
                                                                     <div>
@@ -446,9 +446,9 @@
                                                                             class="text-sm font-medium text-gray-500 flex items-center">
                                                                             <i
                                                                                 class="fas fa-mail-bulk text-emerald-400 mr-1.5 text-xs"></i>
-                                                                            Kode Pos
+                                                                            Unit Kerja
                                                                         </dt>
-                                                                        <dd class="mt-1 text-gray-900">12345</dd>
+                                                                        <dd class="mt-1 text-gray-900">{{ $ticket->unitKerja->name ?? '-' }}</dd>
                                                                     </div>
                                                                 </dl>
                                                             </div>
@@ -467,17 +467,17 @@
                                                             <div class="p-6">
                                                                 <dl
                                                                     class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
-                                                                    <div>
+                                                                   <div>
                                                                         <dt
                                                                             class="text-sm font-medium text-gray-500 flex items-center">
                                                                             <i
                                                                                 class="fas fa-phone-alt text-emerald-400 mr-1.5 text-xs"></i>
-                                                                            Telepon
+                                                                            Kategori Masalah
                                                                         </dt>
                                                                         <dd class="mt-1 text-gray-900">
                                                                             <a href="tel:+6287815454498"
                                                                                 class="text-emerald-600 hover:underline flex items-center group">
-                                                                                <span>+62 878 1545 4498</span>
+                                                                                <span>{{ $ticket->unit->name ?? '-' }}</span>
                                                                                 <i
                                                                                     class="fas fa-headset ml-1.5 opacity-0 group-hover:opacity-100 transition-opacity"></i>
                                                                             </a>
@@ -488,12 +488,12 @@
                                                                             class="text-sm font-medium text-gray-500 flex items-center">
                                                                             <i
                                                                                 class="fas fa-envelope text-emerald-400 mr-1.5 text-xs"></i>
-                                                                            Email
+                                                                            Sub kategori Masalah
                                                                         </dt>
                                                                         <dd class="mt-1 text-gray-900">
                                                                             <a href="mailto:cepatberes2024@gmail.com"
                                                                                 class="text-emerald-600 hover:underline flex items-center group">
-                                                                                <span>cepatberes2024@gmail.com</span>
+                                                                                <span>{{ $ticket->problemCategory->name ?? '-' }}</span>
                                                                                 <i
                                                                                     class="fas fa-paper-plane ml-1.5 opacity-0 group-hover:opacity-100 transition-opacity"></i>
                                                                             </a>
@@ -504,13 +504,13 @@
                                                                             class="text-sm font-medium text-gray-500 flex items-center">
                                                                             <i
                                                                                 class="fas fa-globe text-emerald-400 mr-1.5 text-xs"></i>
-                                                                            Website
+                                                                            Judul Tiket
                                                                         </dt>
                                                                         <dd class="mt-1 text-gray-900">
                                                                             <a href="https://desadigital.com"
                                                                                 target="_blank"
                                                                                 class="text-emerald-600 hover:underline flex items-center group">
-                                                                                <span>www.desadigital.com</span>
+                                                                                <span>{{ $ticket->title ?? '-' }}</span>
                                                                                 <i
                                                                                     class="fas fa-external-link-alt ml-1.5 opacity-0 group-hover:opacity-100 transition-opacity"></i>
                                                                             </a>
@@ -521,11 +521,9 @@
                                                                             class="text-sm font-medium text-gray-500 flex items-center">
                                                                             <i
                                                                                 class="fas fa-map-marker-alt text-emerald-400 mr-1.5 text-xs"></i>
-                                                                            Alamat Kantor Desa
+                                                                            Deskripsi Masalah
                                                                         </dt>
-                                                                        <dd class="mt-1 text-gray-900">Jl. Desa Digital
-                                                                            No. 123, Kecamatan Contoh, Kabupaten Contoh,
-                                                                            Provinsi Contoh 12345</dd>
+                                                                        <dd class="mt-1 text-gray-900">{{ $ticket->description ?? '-' }}</dd>
                                                                     </div>
                                                                 </dl>
                                                             </div>

@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\TicketResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\TicketResource\RelationManagers\CommentsRelationManager;
+use Filament\Forms\Components\Tabs\Tab;
 
 class TicketResource extends Resource
 {
@@ -38,6 +39,24 @@ class TicketResource extends Resource
         return $form
             ->schema([
                 Card::make()->schema([
+
+                    Forms\Components\TextInput::make('username')
+                        ->label(__('Name'))
+                        ->required()
+                        ->maxLength(255)
+                        ->columnSpan([
+                            'sm' => 2,
+                        ]),
+                    Forms\Components\TextInput::make('email')
+                        ->label(__('Email'))
+                        ->email()
+                        ->required()
+                        ->maxLength(255)
+                        ->columnSpan([
+                            'sm' => 2,
+                        ]),
+
+
                     Forms\Components\Select::make('unit_id')
                         ->label(__('Work Unit'))
                         ->options(Unit::all()
@@ -174,6 +193,18 @@ class TicketResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('id')
+                    ->label(__('ID'))
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('username')
+                    ->label(__('Name'))
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('email')
+                    ->label(__('Email'))
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('title')
                     ->translateLabel()
                     ->searchable(),
@@ -213,6 +244,7 @@ class TicketResource extends Resource
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
+            
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
                 Tables\Actions\ForceDeleteBulkAction::make(),

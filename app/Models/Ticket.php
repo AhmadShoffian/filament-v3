@@ -64,6 +64,8 @@ class Ticket extends Model
         'source',
         'problem_category_id',
         'title',
+        'username',
+        'email',
         'description',
         'ticket_statuses_id',
         'responsible_id',

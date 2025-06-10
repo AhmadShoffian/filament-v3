@@ -408,7 +408,7 @@
                                                                                 class="fas fa-signature text-emerald-400 mr-1.5 text-xs"></i>
                                                                             Nama 
                                                                         </dt>
-                                                                        <dd class="mt-1 text-gray-900">{{ $ticket->name }}
+                                                                        <dd class="mt-1 text-gray-900">{{ $ticket->username }}
                                                                         </dd>
                                                                     </div>
                                                                     <div>
@@ -416,9 +416,9 @@
                                                                             class="text-sm font-medium text-gray-500 flex items-center">
                                                                             <i
                                                                                 class="fas fa-map text-emerald-400 mr-1.5 text-xs"></i>
-                                                                            Kecamatan
+                                                                            Email
                                                                         </dt>
-                                                                        <dd class="mt-1 text-gray-900">Kecamatan Contoh
+                                                                        <dd class="mt-1 text-gray-900">{{ $ticket->email }}
                                                                         </dd>
                                                                     </div>
                                                                     <div>
@@ -426,9 +426,9 @@
                                                                             class="text-sm font-medium text-gray-500 flex items-center">
                                                                             <i
                                                                                 class="fas fa-city text-emerald-400 mr-1.5 text-xs"></i>
-                                                                            Kabupaten
+                                                                            No Telepon
                                                                         </dt>
-                                                                        <dd class="mt-1 text-gray-900">Kabupaten Contoh
+                                                                        <dd class="mt-1 text-gray-900">087838658884
                                                                         </dd>
                                                                     </div>
                                                                     <div>
@@ -436,9 +436,9 @@
                                                                             class="text-sm font-medium text-gray-500 flex items-center">
                                                                             <i
                                                                                 class="fas fa-map-marked text-emerald-400 mr-1.5 text-xs"></i>
-                                                                            Provinsi
+                                                                            Peran
                                                                         </dt>
-                                                                        <dd class="mt-1 text-gray-900">Provinsi Contoh
+                                                                        <dd class="mt-1 text-gray-900">{{ $ticket->peran->name ?? '-' }}
                                                                         </dd>
                                                                     </div>
                                                                     <div>
@@ -446,9 +446,9 @@
                                                                             class="text-sm font-medium text-gray-500 flex items-center">
                                                                             <i
                                                                                 class="fas fa-mail-bulk text-emerald-400 mr-1.5 text-xs"></i>
-                                                                            Kode Pos
+                                                                            Unit Kerja
                                                                         </dt>
-                                                                        <dd class="mt-1 text-gray-900">12345</dd>
+                                                                        <dd class="mt-1 text-gray-900">{{ $ticket->unitKerja->name ?? '-' }}</dd>
                                                                     </div>
                                                                 </dl>
                                                             </div>
@@ -472,12 +472,12 @@
                                                                             class="text-sm font-medium text-gray-500 flex items-center">
                                                                             <i
                                                                                 class="fas fa-phone-alt text-emerald-400 mr-1.5 text-xs"></i>
-                                                                            Telepon
+                                                                            Kategori Masalah
                                                                         </dt>
                                                                         <dd class="mt-1 text-gray-900">
                                                                             <a href="tel:+6287815454498"
                                                                                 class="text-emerald-600 hover:underline flex items-center group">
-                                                                                <span>+62 878 1545 4498</span>
+                                                                                <span>{{ $ticket->unit->name ?? '-' }}</span>
                                                                                 <i
                                                                                     class="fas fa-headset ml-1.5 opacity-0 group-hover:opacity-100 transition-opacity"></i>
                                                                             </a>
@@ -488,12 +488,12 @@
                                                                             class="text-sm font-medium text-gray-500 flex items-center">
                                                                             <i
                                                                                 class="fas fa-envelope text-emerald-400 mr-1.5 text-xs"></i>
-                                                                            Email
+                                                                            Sub kategori Masalah
                                                                         </dt>
                                                                         <dd class="mt-1 text-gray-900">
                                                                             <a href="mailto:cepatberes2024@gmail.com"
                                                                                 class="text-emerald-600 hover:underline flex items-center group">
-                                                                                <span>cepatberes2024@gmail.com</span>
+                                                                                <span>{{ $ticket->problemCategory->name ?? '-' }}</span>
                                                                                 <i
                                                                                     class="fas fa-paper-plane ml-1.5 opacity-0 group-hover:opacity-100 transition-opacity"></i>
                                                                             </a>
@@ -504,13 +504,13 @@
                                                                             class="text-sm font-medium text-gray-500 flex items-center">
                                                                             <i
                                                                                 class="fas fa-globe text-emerald-400 mr-1.5 text-xs"></i>
-                                                                            Website
+                                                                            Judul Tiket
                                                                         </dt>
                                                                         <dd class="mt-1 text-gray-900">
                                                                             <a href="https://desadigital.com"
                                                                                 target="_blank"
                                                                                 class="text-emerald-600 hover:underline flex items-center group">
-                                                                                <span>www.desadigital.com</span>
+                                                                                <span>{{ $ticket->title ?? '-' }}</span>
                                                                                 <i
                                                                                     class="fas fa-external-link-alt ml-1.5 opacity-0 group-hover:opacity-100 transition-opacity"></i>
                                                                             </a>
@@ -521,11 +521,9 @@
                                                                             class="text-sm font-medium text-gray-500 flex items-center">
                                                                             <i
                                                                                 class="fas fa-map-marker-alt text-emerald-400 mr-1.5 text-xs"></i>
-                                                                            Alamat Kantor Desa
+                                                                            Deskripsi Masalah
                                                                         </dt>
-                                                                        <dd class="mt-1 text-gray-900">Jl. Desa Digital
-                                                                            No. 123, Kecamatan Contoh, Kabupaten Contoh,
-                                                                            Provinsi Contoh 12345</dd>
+                                                                        <dd class="mt-1 text-gray-900">{{ $ticket->description ?? '-' }}</dd>
                                                                     </div>
                                                                 </dl>
                                                             </div>
@@ -544,7 +542,7 @@
                         </div>
                         <!-- Start Comments -->
                         <div class="post-comments">
-                            {{-- <h3 class="comment-title"><span>02 Comments on this post</span></h3>
+                            <h3 class="comment-title"><span>02 Comments on this post</span></h3>
                             <ul class="comments-list">
                                 <li>
                                     <div class="comment-img">
@@ -584,121 +582,9 @@
                                         </p>
                                     </div>
                                 </li>
-                            </ul> --}}
-
-
-
-
-
-
-
+                            </ul>
                         </div>
 
-
-
-
-
-                        <!-- Start Contact Area -->
-                        <section id="contact-us" class="contact-us section">
-                            <div class="container">
-                                <div class="contact-head">
-                                    <div class="inner-content">
-                                        <div class="row align-items-center">
-                                            <div class="col-lg-8 col-12">
-                                                <div class="form-main">
-                                                    <h3 class="inner-title left">Contact Form</h3>
-                                                    <form class="form" method="post"
-                                                        action="assets/mail/mail.php">
-                                                        <div class="row">
-                                                            <div class="col-lg-6 col-12">
-                                                                <div class="form-group">
-                                                                    <input name="name" type="text"
-                                                                        placeholder="Your Name" required="required">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-6 col-12">
-                                                                <div class="form-group">
-                                                                    <input name="subject" type="text"
-                                                                        placeholder="Your Subject"
-                                                                        required="required">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-6 col-12">
-                                                                <div class="form-group">
-                                                                    <input name="email" type="email"
-                                                                        placeholder="Your Email" required="required">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-6 col-12">
-                                                                <div class="form-group">
-                                                                    <input name="phone" type="text"
-                                                                        placeholder="Your Phone" required="required">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-12">
-                                                                <div class="form-group message">
-                                                                    <textarea name="message" placeholder="Your Message"></textarea>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-12">
-                                                                <div class="form-group button">
-                                                                    <button type="submit" class="btn ">Submit
-                                                                        Message</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-4 col-12">
-                                                <div class="contact-info">
-                                                    <div class="single-head">
-                                                        <h3 class="inner-title">Contact Info</h3>
-                                                        <div class="single-info">
-                                                            <i class="lni lni-map-marker"></i>
-                                                            <ul>
-                                                                <li><strong>Location</strong></li>
-                                                                <li>76/A, Green Valle, California <br>United States</li>
-                                                            </ul>
-                                                        </div>
-
-                                                        <div class="single-info">
-                                                            <i class="lni lni-envelope"></i>
-                                                            <ul>
-                                                                <span>Call Us</span>
-                                                                <li><a href="#">+1 756 445 5658</a></li>
-                                                                <li><a href="#">+1 125 458 5555</a></li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="single-info">
-                                                            <i class="lni lni-map"></i>
-                                                            <ul>
-                                                                <span>Mail Us</span>
-                                                                <li><a
-                                                                        href="mailto:support@yourmail.com">support@yourmail.com</a>
-                                                                </li>
-                                                                <li><a
-                                                                        href="mailto:contact@yourmail.com">contact@yourmail.com</a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="single-info">
-                                                            <i class="lni lni-map"></i>
-                                                            <ul>
-                                                                <span>Office Hour</span>
-                                                                <li>Monday - Friday (9.00-19.00)</li>
-                                                                <li>Sunday - Thusday (10.00-06.00)</li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                        <!--/ End Contact Area -->
 
 
 
@@ -706,7 +592,7 @@
 
                         <!-- End Comments -->
                         <!-- Start Comment Form -->
-                        {{-- <div class="comment-form">
+                        <div class="comment-form">
                             <h3 class="comment-reply-title">Leave a comment</h3>
                             <form action="#" method="POST" enctype="multipart/form-data">
                                 @csrf
@@ -751,7 +637,7 @@
                             </script>
 
 
-                        </div> --}}
+                        </div>
                         <!-- End Comment Form -->
 
 
