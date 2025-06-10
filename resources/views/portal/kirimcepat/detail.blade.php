@@ -406,9 +406,9 @@
                                                                             class="text-sm font-medium text-gray-500 flex items-center">
                                                                             <i
                                                                                 class="fas fa-signature text-emerald-400 mr-1.5 text-xs"></i>
-                                                                            Nama Desa
+                                                                            Nama 
                                                                         </dt>
-                                                                        <dd class="mt-1 text-gray-900">Desa Digital
+                                                                        <dd class="mt-1 text-gray-900">{{ $ticket->name }}
                                                                         </dd>
                                                                     </div>
                                                                     <div>

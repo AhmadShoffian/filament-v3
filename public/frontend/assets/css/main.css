@@ -198,7 +198,7 @@ p {
   z-index: 5;
   transition: all .4s ease-in-out;
   border: none;
-  background: linear-gradient(to left, #E70000 0%, #E70000 50.39%, #E70000 100%);
+  background: linear-gradient(to left, #b49b57 0%, #b49b57 50.39%, #b49b57 100%);
   background-size: 200% auto;
   overflow: hidden; }
   .theme-btn:hover, .theme-btn:focus {
@@ -1745,6 +1745,10 @@ p {
 /*======================================
     Hero Area CSS
 ========================================*/
+
+
+
+
 .hero-area {
   position: relative;
   background: #F4F7FA;
@@ -1860,7 +1864,7 @@ p {
 }
 
 .hero-area.style3 .hero-inner .hero-text {
-  margin-top: 220px;
+  margin-top: 100px;
   margin-left: 10%;
 }
 
@@ -6908,7 +6912,46 @@ ALUR-TIKETING CSS
 .contact-us .single-info ul li a {
   font-weight: 500;
   display: inline-block;
-  font-size: 13px;
+ 
+
+
+/* page banner */
+
+
+.page-banner-section {
+  margin-top: 107px;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .page-banner-section {
+    margin-top: 94px;
+  }
+}
+
+.page-banner-section .banner-content h2 {
+  margin-bottom: 20px;
+}
+
+.page-banner-section .banner-content .page-breadcrumb nav ol {
+  background: none;
+  padding: 0;
+}
+
+.page-banner-section .banner-content .page-breadcrumb nav ol li {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.page-banner-section .banner-content .page-breadcrumb nav ol li::before {
+  color: #fff;
+}
+
+.page-banner-section .banner-content .page-breadcrumb nav ol li a {
+  color: #fff;
+}
+
+ font-size: 13px;
   color: #081828;
 }
 
@@ -7306,45 +7349,6 @@ ALUR-TIKETING CSS
 .pos-abs-cr.show::after {
   opacity: 1;
   visibility: visible;
-}
-
-
-
-
-/* page banner */
-
-
-.page-banner-section {
-  margin-top: 107px;
-}
-
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-  .page-banner-section {
-    margin-top: 94px;
-  }
-}
-
-.page-banner-section .banner-content h2 {
-  margin-bottom: 20px;
-}
-
-.page-banner-section .banner-content .page-breadcrumb nav ol {
-  background: none;
-  padding: 0;
-}
-
-.page-banner-section .banner-content .page-breadcrumb nav ol li {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 20px;
-  font-weight: 500;
-}
-
-.page-banner-section .banner-content .page-breadcrumb nav ol li::before {
-  color: #fff;
-}
-
-.page-banner-section .banner-content .page-breadcrumb nav ol li a {
-  color: #fff;
 }
 
 /*===========================

@@ -54,9 +54,8 @@ class KirimCepatController extends Controller
                 $imagePath = $request->file('image')->store('tickets/attachments', 'public');
             }
 
-            $source = auth()->check() ? 'login' : 'kirim cepat';
-
-            $ownerId = auth()->check() ? auth()->id() : null;
+            $source = auth('portal')->check() ? 'login' : 'kirim cepat';
+            $ownerId = auth('portal')->check() ? auth('portal')->id() : null;
 
             $ticket = Ticket::create([
                 'name' => $request->name,
@@ -75,20 +74,26 @@ class KirimCepatController extends Controller
                 'source' => $source,
             ]);
 
+
             return redirect()->route('portal.viewKirimCepat')->with('success', 'Tiket berhasil dibuat');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => 'Gagal membuat tiket: ' . $e->getMessage()]);
         }
     }
 
-    public function viewKirimCepat()
-    {
-         $tickets = Ticket::paginate(4);
-        return view('portal.kirimcepat.show', compact('tickets'));
-    }
+   public function viewKirimCepat()
+{
+    $tickets = Ticket::where('source', 'kirim cepat')
+                    ->orderByDesc('created_at')
+                    ->paginate(4);
+
+    return view('portal.kirimcepat.show', compact('tickets'));
+}
+
 
     public function kcdetail(Ticket $ticket)
     {
+        $ticket = Ticket::findOrFail($ticket->id);
         return view('portal.kirimcepat.detail', compact('ticket'));
     }
 }

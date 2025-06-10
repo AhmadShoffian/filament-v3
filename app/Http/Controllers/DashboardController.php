@@ -55,7 +55,10 @@ class DashboardController extends Controller
                 $imagePath = $request->file('image')->store('tickets/attachments', 'public');
             }
 
-        $ticket = Ticket::create([
+            $source = auth('portal')->check() ? 'login' : 'kirim cepat';
+            $ownerId = auth('portal')->check() ? auth('portal')->id() : null;
+
+         $ticket = Ticket::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'title' => $request->title,
@@ -67,8 +70,9 @@ class DashboardController extends Controller
                 'image' => $imagePath,
                 'ticket_statuses_id' => 1,
                 'priority_id' => $request->priority,
-                'owner_id' => auth('portal')->id(),
-                'user_id' => auth('portal')->id(),
+                'owner_id' => $ownerId,
+                'user_id' => $ownerId,
+                'source' => $source,
             ]);
 
             return redirect()->route('tickets.show')->with('success', 'Tiket berhasil dibuat');
@@ -79,7 +83,9 @@ class DashboardController extends Controller
 
     public function show()
     {
-        $tickets = Ticket::all();
+        $tickets = Ticket::where('source', 'login')
+                    ->orderByDesc('created_at')
+                    ->paginate(4);
         return view('portal.home.show', compact('tickets'));
     }
 
