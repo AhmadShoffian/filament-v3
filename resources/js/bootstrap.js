@@ -38,3 +38,28 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
  */
 
 import './echo';
+
+
+import * as FilePond from 'filepond';
+import 'filepond/dist/filepond.min.css';
+
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
+
+FilePond.registerPlugin(FilePondPluginImagePreview);
+
+// Ambil CSRF Token
+const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+// Inisialisasi FilePond
+FilePond.setOptions({
+    server: {
+        process: '/upload', // Route ke controller Laravel-mu
+        headers: {
+            'X-CSRF-TOKEN': csrfToken
+        }
+    }
+});
+
+FilePond.parse(document.body);
+

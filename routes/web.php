@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KirimCepatController;
 use App\Http\Controllers\Portal\AuthController;
@@ -26,12 +27,14 @@ Route::get('/', function () {
 })->name('index');
 
 
+// Route::get('/file/create', [FileController::class, 'create'])->name('file.create'); // tambahkan route baru
+// Route::post('/file/store', [FileController::class, 'store'])->name('file.store'); // tambahkan route baru
 
 // socialite login
 Route::get('/auth/{provider}', [SocialiteController::class, 'redirectToProvider']);
 Route::get('/auth/{provider}/callback', [SocialiteController::class, 'handleProvideCallback']);
 
-Route::prefix('portal')->group(function (){
+Route::prefix('portal')->group(function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('portal.login');
     Route::post('/login', [AuthController::class, 'login']);
 
@@ -39,9 +42,11 @@ Route::prefix('portal')->group(function (){
     Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
 
     Route::get('/kirim-cepat', [KirimCepatController::class, 'showKirimCepatForm'])->name('portal.kirimcepat');
+    Route::post('/upload-lampiran', [KirimCepatController::class, 'uploadLampiran'])->name('upload.lampiran');
     Route::post('/kirim-cepat/store', [KirimCepatController::class, 'store'])->name('portal.kirimcepat.store');
     Route::get('/kirim-cepat/view', [KirimCepatController::class, 'viewKirimCepat'])->name('portal.viewKirimCepat');
     Route::get('kirim-cepat/kirim-cepat/{ticket}', [KirimCepatController::class, 'kcdetail'])->name('portal.kcdetail');
+
 
     Route::middleware(['auth:portal'])->group(function () {
         Route::get('/home/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -52,9 +57,7 @@ Route::prefix('portal')->group(function (){
 
         // chat
         Route::get('/chat/{id}', [ChatController::class, 'show'])->name('chat');
-
     });
-
 });
 
 Route::middleware('guest:portal')->group(function () {

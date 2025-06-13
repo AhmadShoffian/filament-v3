@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="{{ asset('../detailticket/css/tiny-slider.css') }}" />
     <link rel="stylesheet" href="{{ asset('../detailticket/css/glightbox.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('../detailticket/css/main.css') }}" />
+    <link href="https://unpkg.com/filepond/dist/filepond.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
 
     <!-- Select2 CSS -->
     {{-- <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet"></head> --}}
@@ -225,30 +227,18 @@
                         </select>
 
                     </div>
-                    <div class="input-box">
-                        <label class="form-label">Lampiran <span id="lampiranBintang"
-                                style="color:red;">*</span></label>
-                        <div class="file-upload">
-                            <div class="preview-box" id="previewBox">
-                                <span id="previewText">Preview File</span>
-                                <img id="previewImage" src="" alt="" style="display: none;">
-                                <a id="previewLink" href="#" target="_blank" style="display: none;">Lihat
-                                    File</a>
-                                <div class="overlay" id="removeBtn" onclick="removeFile()" style="display: none;">
-                                    Hapus</div>
-                            </div>
-                            <div class="upload-box">
-                                <span>Upload file</span>
-                                <input type="file" name="image" id="fileInput" accept=".png,.jpg,.jpeg,.pdf"
-                                    onchange="previewFile()">
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="button-container">
                     <button type="submit" class="btn btn-primary" id="submitBtn">Kirim</button>
                 </div>
+                <div class="input-box">
+                    <label class="form-label">Lampiran <span id="lampiranBintang" style="color:red;">*</span></label>
+                </div>
             </form>
+            <form action="{{ route('upload.lampiran') }}" method="post" enctype="multipart/form-data"
+                class="dropzone mt-4" id="image-upload">
+                @csrf
+            </form><br>
         </div>
     </div>
 
@@ -442,6 +432,53 @@
         document.getElementById("submissionForm").addEventListener("submit", function(event) {
             if (confirm("Yakin ingin mengirim?")) {
                 this.submit(); // Pastikan form dikirim
+            }
+        });
+    </script>
+    <script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+    <script type="text/javascript">
+        Dropzone.autoDiscover = false;
+
+        var myDropzone = new Dropzone(".dropzone", {
+            url: "{{ route('upload.lampiran') }}",
+            paramName: "file",
+            uploadMultiple: false,
+            maxFilesize: 2, // in MB
+            acceptedFiles: ".jpg,.jpeg,.png,.pdf",
+            addRemoveLinks: true,
+            autoProcessQueue: false,
+            init: function() {
+                var dz = this;
+
+                $("#submitBtn").on("click", function(e) {
+                    e.preventDefault();
+                    if (dz.getQueuedFiles().length > 0) {
+                        dz.processQueue();
+                    } else {
+                        document.querySelector("form[name='input_form']").submit();
+                    }
+                });
+
+                dz.on("queuecomplete", function() {
+                    document.querySelector("form[name='input_form']").submit();
+                });
+
+                dz.on("success", function(file, response) {
+                    file.uploadedPath = response.filename; // jika ingin kirim path juga
+                    const input = document.createElement("input");
+                    input.type = "hidden";
+                    input.name = "uploaded_files[]";
+                    input.value = response.filename;
+                    document.querySelector("form[name='input_form']").appendChild(input);
+                });
+
+                dz.on("removedfile", function(file) {
+                    file.previewElement.remove();
+                    // bisa tambahkan AJAX untuk hapus file dari server jika perlu
+                });
+
+
             }
         });
     </script>

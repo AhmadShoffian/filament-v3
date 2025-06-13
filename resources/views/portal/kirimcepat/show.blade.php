@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 
@@ -81,10 +80,9 @@
                                             aria-expanded="false" aria-label="Toggle navigation">Hosting</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="javascript:void(0)"
-                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-3"
-                                            aria-controls="navbarSupportedContent" aria-expanded="false"
-                                            aria-label="Toggle navigation">Blog</a>
+                                        <a href="javascript:void(0)" data-bs-toggle="collapse"
+                                            data-bs-target="#submenu-1-3" aria-controls="navbarSupportedContent"
+                                            aria-expanded="false" aria-label="Toggle navigation">Blog</a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="contact.html" aria-label="Toggle navigation">Contact</a>
@@ -178,20 +176,28 @@
                                 <div class="single-blog-grid">
                                     <div class="blog-img">
                                         <a href="{{ route('tickets.show', $ticket->id) }}">
-                                            <img src="{{ $ticket->image ? asset('storage/' . $ticket->image) : asset('detailticket/images/default-image.png') }}" alt="Gambar Tiket">
+                                            @php
+                                                $firstImage = $ticket->images->first();
+                                            @endphp
+
+                                            <img src="{{ $firstImage ? asset('images/' . $firstImage->filename) : asset('detailticket/images/default-image.png') }}"
+                                                alt="Gambar Tiket">
                                         </a>
                                     </div>
                                     <div class="blog-content">
                                         <div class="meta-info">
-                                            <a class="date" href="javascript:void(0)">Ticket #{{ $ticket->id }}</a>
+                                            <a class="date" href="javascript:void(0)">Ticket
+                                                #{{ $ticket->id }}</a>
                                         </div>
                                         <h4>
-                                            <a href="{{ route('tickets.show', $ticket->id) }}">{{ $ticket->title }}</a>
+                                            <a
+                                                href="{{ route('tickets.show', $ticket->id) }}">{{ $ticket->title }}</a>
                                         </h4>
                                         <p>{{ Str::limit($ticket->description, 100) }}</p>
 
                                         <!-- Tombol Detail -->
-                                        <a href="{{ route('portal.kcdetail', $ticket->id) }}" class="btn btn-primary mt-2">Detail</a>
+                                        <a href="{{ route('portal.kcdetail', $ticket->id) }}"
+                                            class="btn btn-primary mt-2">Detail</a>
                                     </div>
                                 </div>
                                 <!-- End Single Blog Grid -->
@@ -283,8 +289,8 @@
 
 
 
-<!-- Pagination -->
-{{ $tickets->links() }}
+                    <!-- Pagination -->
+                    {{ $tickets->links() }}
 
 
 
@@ -307,7 +313,8 @@
                             <div class="popular-feed-loop">
                                 <div class="single-popular-feed">
                                     <div class="post-image">
-                                        <a href="blog-single.html"><img src="{{ asset('detailticket/images/sidebar-1.jpg') }}"
+                                        <a href="blog-single.html"><img
+                                                src="{{ asset('detailticket/images/sidebar-1.jpg') }}"
                                                 alt="#"></a>
                                     </div>
                                     <div class="feed-desc">
@@ -318,22 +325,26 @@
                                 </div>
                                 <div class="single-popular-feed">
                                     <div class="post-image">
-                                        <a href="blog-single.html"><img src="{{ asset('detailticket/images/blog-1.jpg') }}"
+                                        <a href="blog-single.html"><img
+                                                src="{{ asset('detailticket/images/blog-1.jpg') }}"
                                                 alt="#"></a>
                                     </div>
                                     <div class="feed-desc">
-                                        <h6 class="post-title"><a href="blog-single.html">Should You Turn a Domain into
+                                        <h6 class="post-title"><a href="blog-single.html">Should You Turn a Domain
+                                                into
                                                 a Business?</a></h6>
                                         <span class="time"><i class="lni lni-calendar"></i> 24th March 2023</span>
                                     </div>
                                 </div>
                                 <div class="single-popular-feed">
                                     <div class="post-image">
-                                        <a href="blog-single.html"><img src="{{ asset('detailticket/images/blog-1.jpg') }}"
+                                        <a href="blog-single.html"><img
+                                                src="{{ asset('detailticket/images/blog-1.jpg') }}"
                                                 alt="#"></a>
                                     </div>
                                     <div class="feed-desc">
-                                        <h6 class="post-title"><a href="blog-single.html">Businesses that Use New Domain
+                                        <h6 class="post-title"><a href="blog-single.html">Businesses that Use New
+                                                Domain
                                                 Extensions</a></h6>
                                         <span class="time"><i class="lni lni-calendar"></i> 30th Jan 2023</span>
                                     </div>
@@ -355,7 +366,8 @@
                                     <a href="javascript:void(0)">Hosting <span class="badge rounded">35</span></a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)">Web Security <span class="badge rounded">28</span></a>
+                                    <a href="javascript:void(0)">Web Security <span
+                                            class="badge rounded">28</span></a>
                                 </li>
                                 <li>
                                     <a href="javascript:void(0)">Technology <span class="badge rounded">15</span></a>
@@ -407,7 +419,8 @@
                                 <p>We are Hostpack 29 years of experience on this field with most talanted peoples and
                                     leaders.
                                 </p>
-                                <a class="call" href="tel:8884014678"><i class="lni lni-phone-set"></i> 888-401-4678</a>
+                                <a class="call" href="tel:8884014678"><i class="lni lni-phone-set"></i>
+                                    888-401-4678</a>
                                 <div class="payments">
                                     <img src="assets/images/footer/cards.png" alt="#">
                                 </div>
@@ -415,7 +428,8 @@
                                     <li><a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a></li>
                                     <li><a href="javascript:void(0)"><i class="lni lni-instagram"></i></a></li>
                                     <li><a href="javascript:void(0)"><i class="lni lni-twitter-original"></i></a></li>
-                                    <li><a href="javascript:void(0)"><i class="lni lni-linkedin-original"></i></a></li>
+                                    <li><a href="javascript:void(0)"><i class="lni lni-linkedin-original"></i></a>
+                                    </li>
                                     <li><a href="javascript:void(0)"><i class="lni lni-youtube"></i></a></li>
                                 </ul>
                                 <p class="copyright-text">© 2023 HostGrids.<br>
@@ -471,7 +485,8 @@
                                     <!-- Start Single News -->
                                     <div class="single-news">
                                         <span class="date"><a href="javascript:void(0)">NOVEMBER 29, 2023</a></span>
-                                        <h4 class="post-title"><a href="blog-single.html">An artistic Technology turning
+                                        <h4 class="post-title"><a href="blog-single.html">An artistic Technology
+                                                turning
                                                 real here</a>
                                         </h4>
                                     </div>

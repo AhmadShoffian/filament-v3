@@ -207,43 +207,53 @@
                                                         <div
                                                             class="bg-gray-50 shadow-sm rounded-lg p-5 mb-4 border border-gray-100 text-center">
                                                             <!-- Wrapper untuk gambar dan tombol -->
-                                                            <div class="position-relative"
-                                                                style="width: 100%; max-width: 400px;">
-                                                                <!-- Gambar -->
-                                                                <img src="{{ asset('storage/' . $ticket->image) }}"
-                                                                    alt="Ticket Image" class="img-fluid rounded">
+                                                            @if ($ticket->images->count())
+                                                                @foreach ($ticket->images as $image)
+                                                                    <div class="position-relative"
+                                                                        style="width: 100%; max-width: 400px;">
+                                                                        <!-- Gambar -->
+                                                                        <img src="{{ asset('images/' . $image->filename) }}"
+                                                                            alt="Ticket Image"
+                                                                            class="img-fluid rounded">
 
-                                                                <!-- Tombol transparan di tengah -->
-                                                                <button type="button" class="view-btn"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#imageModal{{ $ticket->id }}">
-                                                                    View Image
-                                                                </button>
-                                                            </div>
+                                                                        <!-- Tombol transparan di tengah -->
+                                                                        <button type="button" class="view-btn"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#imageModal{{ $loop->index }}">
+                                                                            View Image
+                                                                        </button>
+                                                                    </div>
 
-                                                            <!-- Modal -->
-                                                            <div class="modal fade" id="imageModal{{ $ticket->id }}"
-                                                                tabindex="-1"
-                                                                aria-labelledby="imageModalLabel{{ $ticket->id }}"
-                                                                aria-hidden="true">
-                                                                <div class="modal-dialog modal-dialog-centered">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <h5 class="modal-title"
-                                                                                id="imageModalLabel{{ $ticket->id }}">
-                                                                                Ticket #{{ $ticket->id }} Image</h5>
-                                                                            <button type="button" class="btn-close"
-                                                                                data-bs-dismiss="modal"
-                                                                                aria-label="Close"></button>
-                                                                        </div>
-                                                                        <div class="modal-body text-center">
-                                                                            <img src="{{ asset('storage/' . $ticket->image) }}"
-                                                                                alt="Ticket Image"
-                                                                                class="img-fluid rounded">
+                                                                    <!-- Modal -->
+                                                                    <div class="modal fade"
+                                                                        id="imageModal{{ $loop->index }}"
+                                                                        tabindex="-1"
+                                                                        aria-labelledby="imageModalLabel{{ $loop->index }}"
+                                                                        aria-hidden="true">
+                                                                        <div
+                                                                            class="modal-dialog modal-dialog-centered">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title"
+                                                                                        id="imageModalLabel{{ $loop->index }}">
+                                                                                        Ticket #{{ $ticket->id }} -
+                                                                                        Lampiran
+                                                                                    </h5>
+                                                                                    <button type="button"
+                                                                                        class="btn-close"
+                                                                                        data-bs-dismiss="modal"
+                                                                                        aria-label="Close"></button>
+                                                                                </div>
+                                                                                <div class="modal-body text-center">
+                                                                                    <img src="{{ asset('images/' . $image->filename) }}"
+                                                                                        alt="Ticket Image"
+                                                                                        class="img-fluid rounded">
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                            </div>
+                                                                @endforeach
+                                                            @endif
                                                             <h3 class="font-semibold text-xl text-gray-900 mb-1">Desa
                                                                 Digital</h3>
                                                             <p class="text-sm text-gray-500">Kecamatan Contoh,

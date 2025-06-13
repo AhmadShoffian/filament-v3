@@ -55,6 +55,7 @@ class ChatComponent extends Component
         $chatMessage = new Comment();
         $chatMessage->sender_id = $this->sender_id;
         $chatMessage->receiver_id = $this->receiver_id;
+        $chatMessage->ticket_id = $this->ticket_id;
         $chatMessage->comment = $this->comment;
         $chatMessage->save();
 
