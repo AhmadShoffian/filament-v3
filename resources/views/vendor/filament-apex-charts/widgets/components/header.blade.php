@@ -4,11 +4,12 @@
         <div class="sm:flex justify-between gap-4 py-2 relative">
 
             <div>
-                @if ($heading)
-                    <x-filament::card.heading class="filament-apex-charts-heading">
+               @if ($heading)
+                    <h2 class="text-xl font-bold filament-apex-charts-heading">
                         {!! $heading !!}
-                    </x-filament::card.heading>
+                    </h2>
                 @endif
+
 
                 @if ($subheading)
                     <div class="filament-apex-charts-subheading text-sm text-gray-600 dark:text-gray-300">

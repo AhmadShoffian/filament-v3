@@ -28,6 +28,8 @@ class Comment extends Model
     use SoftDeletes;
     protected $table = 'comments';
 
+    public $timestamps = true;
+
     protected $casts = [
         'tiket_id' => 'int',
         'user_id' => 'int',
@@ -48,5 +50,14 @@ class Comment extends Model
     public function ticket()
     {
         return $this->belongsTo(Ticket::class, 'tiket_id');
+    }
+
+    public function sender()
+    {
+        return $this->belongsTo(User::class, 'sender_id');
+    }
+    public function receiver()
+    {
+        return $this->belongsTo(User::class, 'receiver_id');
     }
 }

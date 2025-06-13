@@ -406,9 +406,10 @@
                                                                             class="text-sm font-medium text-gray-500 flex items-center">
                                                                             <i
                                                                                 class="fas fa-signature text-emerald-400 mr-1.5 text-xs"></i>
-                                                                            Nama 
+                                                                            Nama
                                                                         </dt>
-                                                                        <dd class="mt-1 text-gray-900">{{ $ticket->username }}
+                                                                        <dd class="mt-1 text-gray-900">
+                                                                            {{ $ticket->username }}
                                                                         </dd>
                                                                     </div>
                                                                     <div>
@@ -418,7 +419,8 @@
                                                                                 class="fas fa-map text-emerald-400 mr-1.5 text-xs"></i>
                                                                             Email
                                                                         </dt>
-                                                                        <dd class="mt-1 text-gray-900">{{ $ticket->email }}
+                                                                        <dd class="mt-1 text-gray-900">
+                                                                            {{ $ticket->email }}
                                                                         </dd>
                                                                     </div>
                                                                     <div>
@@ -438,7 +440,8 @@
                                                                                 class="fas fa-map-marked text-emerald-400 mr-1.5 text-xs"></i>
                                                                             Peran
                                                                         </dt>
-                                                                        <dd class="mt-1 text-gray-900">{{ $ticket->peran->name ?? '-' }}
+                                                                        <dd class="mt-1 text-gray-900">
+                                                                            {{ $ticket->peran->name ?? '-' }}
                                                                         </dd>
                                                                     </div>
                                                                     <div>
@@ -448,7 +451,8 @@
                                                                                 class="fas fa-mail-bulk text-emerald-400 mr-1.5 text-xs"></i>
                                                                             Unit Kerja
                                                                         </dt>
-                                                                        <dd class="mt-1 text-gray-900">{{ $ticket->unitKerja->name ?? '-' }}</dd>
+                                                                        <dd class="mt-1 text-gray-900">
+                                                                            {{ $ticket->unitKerja->name ?? '-' }}</dd>
                                                                     </div>
                                                                 </dl>
                                                             </div>
@@ -467,7 +471,7 @@
                                                             <div class="p-6">
                                                                 <dl
                                                                     class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
-                                                                   <div>
+                                                                    <div>
                                                                         <dt
                                                                             class="text-sm font-medium text-gray-500 flex items-center">
                                                                             <i
@@ -523,7 +527,8 @@
                                                                                 class="fas fa-map-marker-alt text-emerald-400 mr-1.5 text-xs"></i>
                                                                             Deskripsi Masalah
                                                                         </dt>
-                                                                        <dd class="mt-1 text-gray-900">{{ $ticket->description ?? '-' }}</dd>
+                                                                        <dd class="mt-1 text-gray-900">
+                                                                            {{ $ticket->description ?? '-' }}</dd>
                                                                     </div>
                                                                 </dl>
                                                             </div>
@@ -531,8 +536,17 @@
                                                         <button type="button" class="btn btn-danger">Kembali</button>
                                                         <button type="button" class="btn btn-primary">Buat Tiket
                                                             Baru</button>
-                                                        <button type="button" class="btn btn-secondary">Bantuan
-                                                        </button>
+                                                        @foreach ($users as $user)
+                                                            @if ($user->id !== auth()->id())
+                                                                <a href="{{ route('chat', ['id' => $user->id]) }}"
+                                                                    class="btn btn-primary">
+                                                                    Chat dengan {{ $user->name }}
+                                                                </a>
+                                                            @endif
+                                                        @endforeach
+
+
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -540,6 +554,14 @@
                                     </div>
                             </div>
                         </div>
+
+
+    <!-- Start Blog Singel Area -->
+    
+                        <livewire:chat-component :userId="$user->id" />
+
+
+
                         <!-- Start Comments -->
                         <div class="post-comments">
                             <h3 class="comment-title"><span>02 Comments on this post</span></h3>
@@ -615,7 +637,8 @@
 
                                     <!-- Tombol Submit -->
                                     <div class="col-12 text-end">
-                                        <button type="submit" class="btn btn-primary px-4 py-2">Kirim Komentar</button>
+                                        <button type="submit" class="btn btn-primary px-4 py-2">Kirim
+                                            Komentar</button>
                                     </div>
                                 </div>
                             </form>

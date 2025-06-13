@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Unit;
+use App\Models\User;
 use App\Models\Peran;
 use App\Models\Ticket;
 use App\Models\Priority;
@@ -89,9 +90,13 @@ class DashboardController extends Controller
         return view('portal.home.show', compact('tickets'));
     }
 
-    public function detail(Ticket $ticket)
-    {
-        return view('portal.home.detail', compact('ticket'));
-    }
+   public function detail(Ticket $ticket)
+{
+    $users = User::where('id', '!=', auth()->id())->get();
+    $tickets = Ticket::where('user_id', auth()->id())->get(); // atau filter sesuai kebutuhan
+
+    return view('portal.home.detail', compact('ticket', 'users', 'tickets'));
+}
+
 
 }

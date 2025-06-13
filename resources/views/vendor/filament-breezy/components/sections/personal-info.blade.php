@@ -11,7 +11,7 @@
     <form wire:submit.prevent="updateProfile" class="col-span-2 sm:col-span-1 mt-5 md:mt-0">
         <x-filament::card>
 
-            {{ $this->updateProfileForm }}
+           {{ $this->form }}
 
             <x-slot name="footer">
                 <div class="text-right">

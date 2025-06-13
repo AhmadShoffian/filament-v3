@@ -2,17 +2,17 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ProblemCategoryResource\Pages;
-use App\Filament\Resources\ProblemCategoryResource\RelationManagers\TicketsRelationManager;
-use App\Models\ProblemCategory;
-use App\Models\Unit;
 use Filament\Forms;
-use Filament\Resources\Form;
-use Filament\Resources\Resource;
-use Filament\Resources\Table;
+use App\Models\Unit;
 use Filament\Tables;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
+use App\Models\ProblemCategory;
+use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\ProblemCategoryResource\Pages;
+use App\Filament\Resources\ProblemCategoryResource\RelationManagers\TicketsRelationManager;
 
 class ProblemCategoryResource extends Resource
 {

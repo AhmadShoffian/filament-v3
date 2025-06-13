@@ -2,6 +2,7 @@
 <html class="no-js" lang="zxx">
 
 <head>
+    @livewireStyles
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <title>Blog Single - HostGrids Hosting & Domain Services HTML Template.</title>
@@ -64,14 +65,14 @@
     <![endif]-->
 
     <!-- Preloader -->
-    <div class="preloader">
+    {{-- <div class="preloader">
         <div class="preloader-inner">
             <div class="preloader-icon">
                 <span></span>
                 <span></span>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- /End Preloader -->
 
     <!-- Start Header Area -->
@@ -406,9 +407,10 @@
                                                                             class="text-sm font-medium text-gray-500 flex items-center">
                                                                             <i
                                                                                 class="fas fa-signature text-emerald-400 mr-1.5 text-xs"></i>
-                                                                            Nama 
+                                                                            Nama
                                                                         </dt>
-                                                                        <dd class="mt-1 text-gray-900">{{ $ticket->username }}
+                                                                        <dd class="mt-1 text-gray-900">
+                                                                            {{ $ticket->username }}
                                                                         </dd>
                                                                     </div>
                                                                     <div>
@@ -418,7 +420,8 @@
                                                                                 class="fas fa-map text-emerald-400 mr-1.5 text-xs"></i>
                                                                             Email
                                                                         </dt>
-                                                                        <dd class="mt-1 text-gray-900">{{ $ticket->email }}
+                                                                        <dd class="mt-1 text-gray-900">
+                                                                            {{ $ticket->email }}
                                                                         </dd>
                                                                     </div>
                                                                     <div>
@@ -438,7 +441,8 @@
                                                                                 class="fas fa-map-marked text-emerald-400 mr-1.5 text-xs"></i>
                                                                             Peran
                                                                         </dt>
-                                                                        <dd class="mt-1 text-gray-900">{{ $ticket->peran->name ?? '-' }}
+                                                                        <dd class="mt-1 text-gray-900">
+                                                                            {{ $ticket->peran->name ?? '-' }}
                                                                         </dd>
                                                                     </div>
                                                                     <div>
@@ -448,7 +452,8 @@
                                                                                 class="fas fa-mail-bulk text-emerald-400 mr-1.5 text-xs"></i>
                                                                             Unit Kerja
                                                                         </dt>
-                                                                        <dd class="mt-1 text-gray-900">{{ $ticket->unitKerja->name ?? '-' }}</dd>
+                                                                        <dd class="mt-1 text-gray-900">
+                                                                            {{ $ticket->unitKerja->name ?? '-' }}</dd>
                                                                     </div>
                                                                 </dl>
                                                             </div>
@@ -523,7 +528,8 @@
                                                                                 class="fas fa-map-marker-alt text-emerald-400 mr-1.5 text-xs"></i>
                                                                             Deskripsi Masalah
                                                                         </dt>
-                                                                        <dd class="mt-1 text-gray-900">{{ $ticket->description ?? '-' }}</dd>
+                                                                        <dd class="mt-1 text-gray-900">
+                                                                            {{ $ticket->description ?? '-' }}</dd>
                                                                     </div>
                                                                 </dl>
                                                             </div>
@@ -541,7 +547,7 @@
                             </div>
                         </div>
                         <!-- Start Comments -->
-                        <div class="post-comments">
+                        {{-- <div class="post-comments">
                             <h3 class="comment-title"><span>02 Comments on this post</span></h3>
                             <ul class="comments-list">
                                 <li>
@@ -583,16 +589,17 @@
                                     </div>
                                 </li>
                             </ul>
+                        </div> --}}
+                        <!-- End Comments -->
+
+                        <div class="container mx-auto mt-5">
+                            <livewire:frontend.chat-component :ticket="$ticket" />
                         </div>
 
 
 
-
-
-
-                        <!-- End Comments -->
                         <!-- Start Comment Form -->
-                        <div class="comment-form">
+                        {{-- <div class="comment-form">
                             <h3 class="comment-reply-title">Leave a comment</h3>
                             <form action="#" method="POST" enctype="multipart/form-data">
                                 @csrf
@@ -600,7 +607,7 @@
                                     <!-- Komentar -->
                                     <div class="col-12 mb-3">
                                         <label for="content" class="form-label fw-bold">Komentar</label>
-                                        <textarea name="content" id="content" class="ckeditor form-control" rows="5"
+                                        <textarea name="content" id="editor" class="ckeditor form-control" rows="5"
                                             placeholder="Tulis komentar Anda..." required></textarea>
                                     </div>
 
@@ -621,7 +628,8 @@
 
                                     <!-- Tombol Submit -->
                                     <div class="col-12 text-end">
-                                        <button type="submit" class="btn btn-primary px-4 py-2">Kirim Komentar</button>
+                                        <button type="submit" class="btn btn-primary px-4 py-2">Kirim
+                                            Komentar</button>
                                     </div>
                                 </div>
                             </form>
@@ -635,9 +643,199 @@
                                     fileName.textContent = this.files.length > 0 ? this.files[0].name : 'Belum ada file dipilih';
                                 });
                             </script>
+                            <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/super-build/ckeditor.js"></script>
+
+                            <script>
+                                // This sample still does not showcase all CKEditor&nbsp;5 features (!)
+                                // Visit https://ckeditor.com/docs/ckeditor5/latest/features/index.html to browse all the features.
+                                CKEDITOR.ClassicEditor.create(document.getElementById("editor"), {
+                                    // https://ckeditor.com/docs/ckeditor5/latest/getting-started/setup/toolbar/toolbar.html#extended-toolbar-configuration-format
+                                    toolbar: {
+                                        items: [
+                                            'exportPDF', 'exportWord', '|',
+                                            'findAndReplace', 'selectAll', '|',
+                                            'heading', '|',
+                                            'bold', 'italic', 'strikethrough', 'underline', 'code', 'subscript', 'superscript',
+                                            'removeFormat', '|',
+                                            'bulletedList', 'numberedList', 'todoList', '|',
+                                            'outdent', 'indent', '|',
+                                            'undo', 'redo',
+                                            '-',
+                                            'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'highlight', '|',
+                                            'alignment', '|',
+                                            'link', 'uploadImage', 'blockQuote', 'insertTable', 'mediaEmbed', 'codeBlock', 'htmlEmbed',
+                                            '|',
+                                            'specialCharacters', 'horizontalLine', 'pageBreak', '|',
+                                            'textPartLanguage', '|',
+                                            'sourceEditing'
+                                        ],
+                                        shouldNotGroupWhenFull: true
+                                    },
+                                    // Changing the language of the interface requires loading the language file using the <script> tag.
+                                    // language: 'es',
+                                    list: {
+                                        properties: {
+                                            styles: true,
+                                            startIndex: true,
+                                            reversed: true
+                                        }
+                                    },
+                                    // https://ckeditor.com/docs/ckeditor5/latest/features/headings.html#configuration
+                                    heading: {
+                                        options: [{
+                                                model: 'paragraph',
+                                                title: 'Paragraph',
+                                                class: 'ck-heading_paragraph'
+                                            },
+                                            {
+                                                model: 'heading1',
+                                                view: 'h1',
+                                                title: 'Heading 1',
+                                                class: 'ck-heading_heading1'
+                                            },
+                                            {
+                                                model: 'heading2',
+                                                view: 'h2',
+                                                title: 'Heading 2',
+                                                class: 'ck-heading_heading2'
+                                            },
+                                            {
+                                                model: 'heading3',
+                                                view: 'h3',
+                                                title: 'Heading 3',
+                                                class: 'ck-heading_heading3'
+                                            },
+                                            {
+                                                model: 'heading4',
+                                                view: 'h4',
+                                                title: 'Heading 4',
+                                                class: 'ck-heading_heading4'
+                                            },
+                                            {
+                                                model: 'heading5',
+                                                view: 'h5',
+                                                title: 'Heading 5',
+                                                class: 'ck-heading_heading5'
+                                            },
+                                            {
+                                                model: 'heading6',
+                                                view: 'h6',
+                                                title: 'Heading 6',
+                                                class: 'ck-heading_heading6'
+                                            }
+                                        ]
+                                    },
+                                    // https://ckeditor.com/docs/ckeditor5/latest/features/editor-placeholder.html#using-the-editor-configuration
+                                    // placeholder: 'Welcome to CKEditor 5!',
+                                    // https://ckeditor.com/docs/ckeditor5/latest/features/font.html#configuring-the-font-family-feature
+                                    fontFamily: {
+                                        options: [
+                                            'default',
+                                            'Arial, Helvetica, sans-serif',
+                                            'Courier New, Courier, monospace',
+                                            'Georgia, serif',
+                                            'Lucida Sans Unicode, Lucida Grande, sans-serif',
+                                            'Tahoma, Geneva, sans-serif',
+                                            'Times New Roman, Times, serif',
+                                            'Trebuchet MS, Helvetica, sans-serif',
+                                            'Verdana, Geneva, sans-serif'
+                                        ],
+                                        supportAllValues: true
+                                    },
+                                    // https://ckeditor.com/docs/ckeditor5/latest/features/font.html#configuring-the-font-size-feature
+                                    fontSize: {
+                                        options: [10, 12, 14, 'default', 18, 20, 22],
+                                        supportAllValues: true
+                                    },
+                                    // Be careful with the setting below. It instructs CKEditor to accept ALL HTML markup.
+                                    // https://ckeditor.com/docs/ckeditor5/latest/features/general-html-support.html#enabling-all-html-features
+                                    htmlSupport: {
+                                        allow: [{
+                                            name: /.*/,
+                                            attributes: true,
+                                            classes: true,
+                                            styles: true
+                                        }]
+                                    },
+                                    // Be careful with enabling previews
+                                    // https://ckeditor.com/docs/ckeditor5/latest/features/html-embed.html#content-previews
+                                    htmlEmbed: {
+                                        showPreviews: false
+                                    },
+                                    // https://ckeditor.com/docs/ckeditor5/latest/features/link.html#custom-link-attributes-decorators
+                                    link: {
+                                        decorators: {
+                                            addTargetToExternalLinks: true,
+                                            defaultProtocol: 'https://',
+                                            toggleDownloadable: {
+                                                mode: 'manual',
+                                                label: 'Downloadable',
+                                                attributes: {
+                                                    download: 'file'
+                                                }
+                                            }
+                                        }
+                                    },
+                                    // https://ckeditor.com/docs/ckeditor5/latest/features/mentions.html#configuration
+                                    mention: {
+                                        feeds: [{
+                                            marker: '@',
+                                            feed: [
+                                                '@apple', '@bears', '@brownie', '@cake', '@cake', '@candy', '@canes',
+                                                '@chocolate', '@cookie', '@cotton', '@cream',
+                                                '@cupcake', '@danish', '@donut', '@dragée', '@fruitcake', '@gingerbread',
+                                                '@gummi', '@ice', '@jelly-o',
+                                                '@liquorice', '@macaroon', '@marzipan', '@oat', '@pie', '@plum', '@pudding',
+                                                '@sesame', '@snaps', '@soufflé',
+                                                '@sugar', '@sweet', '@topping', '@wafer'
+                                            ],
+                                            minimumCharacters: 1
+                                        }]
+                                    },
+                                    // The "superbuild" contains more premium features that require additional configuration, disable them below.
+                                    // Do not turn them on unless you read the documentation and know how to configure them and setup the editor.
+                                    removePlugins: [
+                                        // These two are commercial, but you can try them out without registering to a trial.
+                                        // 'ExportPdf',
+                                        // 'ExportWord',
+                                        'AIAssistant',
+                                        'CKBox',
+                                        'CKFinder',
+                                        'EasyImage',
+                                        // This sample uses the Base64UploadAdapter to handle image uploads as it requires no configuration.
+                                        // https://ckeditor.com/docs/ckeditor5/latest/features/images/image-upload/base64-upload-adapter.html
+                                        // Storing images as Base64 is usually a very bad idea.
+                                        // Replace it on production website with other solutions:
+                                        // https://ckeditor.com/docs/ckeditor5/latest/features/images/image-upload/image-upload.html
+                                        // 'Base64UploadAdapter',
+                                        'MultiLevelList',
+                                        'RealTimeCollaborativeComments',
+                                        'RealTimeCollaborativeTrackChanges',
+                                        'RealTimeCollaborativeRevisionHistory',
+                                        'PresenceList',
+                                        'Comments',
+                                        'TrackChanges',
+                                        'TrackChangesData',
+                                        'RevisionHistory',
+                                        'Pagination',
+                                        'WProofreader',
+                                        // Careful, with the Mathtype plugin CKEditor will not load when loading this sample
+                                        // from a local file system (file://) - load this site via HTTP server if you enable MathType.
+                                        'MathType',
+                                        // The following features require additional license.
+                                        'SlashCommand',
+                                        'Template',
+                                        'DocumentOutline',
+                                        'FormatPainter',
+                                        'TableOfContents',
+                                        'PasteFromOfficeEnhanced',
+                                        'CaseChange'
+                                    ]
+                                });
+                            </script>
 
 
-                        </div>
+                        </div> --}}
                         <!-- End Comment Form -->
 
 
@@ -911,6 +1109,8 @@
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.1/dist/cdn.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @livewireScripts
 
 </body>
 

@@ -94,5 +94,6 @@ class KirimCepatController extends Controller
     public function kcdetail(Ticket $ticket)
     {
         return view('portal.kirimcepat.detail', compact('ticket'));
+        
     }
 }

@@ -4,23 +4,22 @@ namespace App\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Tables;
-use Filament\Resources\Form;
-use Filament\Resources\Table;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Spatie\Permission\Models\Role;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Spatie\Permission\Models\Role;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\RoleResource\Pages;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class RoleResource extends Resource
 {
     protected static ?string $model = Role::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection'; // Pilih satu saja
-
+    protected static ?string $navigationIcon = 'heroicon-o-folder';
     protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
@@ -71,9 +70,7 @@ class RoleResource extends Resource
                     ->sortable()
                     ->label('Guard Name'),
             ])
-            ->filters([
-                //
-            ])
+            ->filters([])
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),

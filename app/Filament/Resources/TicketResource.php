@@ -9,20 +9,20 @@ use Filament\Tables;
 use App\Models\Peran;
 use App\Models\Ticket;
 use App\Models\Priority;
+use Filament\Forms\Form;
 use App\Models\UnitKerja;
+use Filament\Tables\Table;
 use App\Models\TicketStatus;
-use Filament\Resources\Form;
-use Filament\Resources\Table;
 use App\Models\ProblemCategory;
 use Filament\Resources\Resource;
 use Forms\Components\FileUpload;
 use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Tabs\Tab;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\TicketResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\TicketResource\RelationManagers\CommentsRelationManager;
-use Filament\Forms\Components\Tabs\Tab;
 
 class TicketResource extends Resource
 {
@@ -35,8 +35,8 @@ class TicketResource extends Resource
     protected static ?string $recordTitleAttribute = 'title';
 
     public static function form(Form $form): Form
-    {
-        return $form
+        {
+            return $form
             ->schema([
                 Card::make()->schema([
 

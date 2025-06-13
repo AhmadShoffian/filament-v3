@@ -2,12 +2,12 @@
 
 namespace App\Filament\Resources\UserResource\RelationManagers;
 
-use App\Models\Ticket;
 use Filament\Forms;
-use Filament\Resources\Form;
-use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Resources\Table;
 use Filament\Tables;
+use App\Models\Ticket;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
+use Filament\Resources\RelationManagers\RelationManager;
 
 class TicketsRelationManager extends RelationManager
 {
@@ -15,7 +15,7 @@ class TicketsRelationManager extends RelationManager
 
     protected static ?string $recordTitleAttribute = 'title';
 
-    public static function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->schema([
@@ -26,7 +26,7 @@ class TicketsRelationManager extends RelationManager
         ;
     }
 
-    public static function table(Table $table): Table
+    public function table(Table $table): Table
     {
         return $table
             ->columns([

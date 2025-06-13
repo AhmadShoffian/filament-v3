@@ -6,8 +6,8 @@ use Filament\Forms;
 use App\Models\Unit;
 use App\Models\User;
 use Filament\Tables;
-use Filament\Resources\Form;
-use Filament\Resources\Table;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Resources\Pages\Page;
 use Illuminate\Support\Facades\Hash;
@@ -93,7 +93,7 @@ class UserResource extends Resource
             ])
             ->actions([
                 Impersonate::make()
-                    ->redirectTo(route('filament.pages.dashboard')),
+                ->redirectTo(route('filament.admin.pages.dashboard')),
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make()

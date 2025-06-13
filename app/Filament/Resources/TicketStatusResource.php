@@ -2,22 +2,22 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\TicketStatusResource\Pages;
-use App\Filament\Resources\TicketStatusResource\RelationManagers\TicketsRelationManager;
-use App\Models\TicketStatus;
 use Filament\Forms;
-use Filament\Resources\Form;
-use Filament\Resources\Resource;
-use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
+use App\Models\TicketStatus;
+use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\TicketStatusResource\Pages;
+use App\Filament\Resources\TicketStatusResource\RelationManagers\TicketsRelationManager;
 
 class TicketStatusResource extends Resource
 {
     protected static ?string $model = TicketStatus::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-folder';
 
     protected static ?int $navigationSort = 4;
 

@@ -4,9 +4,10 @@ namespace App\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Tables;
+use Filament\Forms\Form;
+use Filament\Pages\Page;
 use App\Models\UnitKerja;
-use Filament\Resources\Form;
-use Filament\Resources\Table;
+use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Card;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,13 +16,12 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\UnitKerjaResource\RelationManagers;
 use App\Filament\Resources\UnitResource\RelationManagers\UsersRelationManager;
 use App\Filament\Resources\UnitResource\RelationManagers\ProblemCategoriesRelationManager;
-use Filament\Pages\Page;
 
 class UnitKerjaResource extends Resource
 {
     protected static ?string $model = UnitKerja::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-folder';
 
     protected static ?string $navigationGroup = 'Master Data';
 

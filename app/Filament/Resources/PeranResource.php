@@ -5,8 +5,8 @@ namespace App\Filament\Resources;
 use Filament\Forms;
 use Filament\Tables;
 use App\Models\Peran;
-use Filament\Resources\Form;
-use Filament\Resources\Table;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Card;
 use Illuminate\Database\Eloquent\Builder;
@@ -19,7 +19,7 @@ class PeranResource extends Resource
 {
     protected static ?string $model = Peran::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-folder';
     protected static ?string $navigationGroup = 'Master Data';
 
     public static function form(Form $form): Form
@@ -58,47 +58,34 @@ class PeranResource extends Resource
     }
 
     public static function table(Table $table): Table
-    {
-        return $table
-            ->columns([
-                Tables\Columns\TextColumn::make('name')
-                    ->label('Nama Peran')
-                    ->searchable()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('description')
-                    ->label('Deskripsi Peran')
-                    ->limit(100)
-                    ->searchable()
-                    ->sortable(),
-                // Tables\Columns\TextColumn::make('created_by')
-                //     ->label('Dibuat Oleh')
-                //     ->searchable()
-                //     ->sortable(),
-                // Tables\Columns\TextColumn::make('updated_by')
-                //     ->label('Diperbarui Oleh')
-                //     ->searchable()
-                //     ->sortable(),
-                // Tables\Columns\TextColumn::make('deleted_by')
-                //     ->label('Dihapus Oleh')
-                //     ->searchable()
-                //     ->sortable(),
-            ])
-            ->filters([
-               Tables\Filters\TrashedFilter::make(),
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\DeleteAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\ForceDeleteBulkAction::make(),
-                Tables\Actions\RestoreBulkAction::make(),
+{
+    return $table
+        ->columns([
+            Tables\Columns\TextColumn::make('name')
+                ->label('Nama Peran')
+                ->searchable()
+                ->sortable(),
 
-                Tables\Actions\DeleteBulkAction::make(),
-
-            ]);
-    }
+            Tables\Columns\TextColumn::make('description')
+                ->label('Deskripsi Peran')
+                ->limit(100)
+                ->searchable()
+                ->sortable(),
+        ])
+        ->filters([
+            Tables\Filters\TrashedFilter::make(),
+        ])
+        ->actions([
+            Tables\Actions\ViewAction::make(),
+            Tables\Actions\EditAction::make(),
+            Tables\Actions\DeleteAction::make(),
+        ])
+        ->bulkActions([
+            Tables\Actions\DeleteBulkAction::make(),
+            Tables\Actions\ForceDeleteBulkAction::make(),
+            Tables\Actions\RestoreBulkAction::make(),
+        ]);
+}
     
     public static function getRelations(): array
     {

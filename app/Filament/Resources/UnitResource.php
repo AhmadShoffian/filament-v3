@@ -2,17 +2,17 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\UnitResource\Pages;
-use App\Filament\Resources\UnitResource\RelationManagers\ProblemCategoriesRelationManager;
-use App\Filament\Resources\UnitResource\RelationManagers\UsersRelationManager;
-use App\Models\Unit;
 use Filament\Forms;
-use Filament\Resources\Form;
-use Filament\Resources\Resource;
-use Filament\Resources\Table;
+use App\Models\Unit;
 use Filament\Tables;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
+use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\UnitResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\UnitResource\RelationManagers\UsersRelationManager;
+use App\Filament\Resources\UnitResource\RelationManagers\ProblemCategoriesRelationManager;
 
 class UnitResource extends Resource
 {

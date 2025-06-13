@@ -11,7 +11,8 @@
     <form wire:submit.prevent="updatePassword" class="col-span-2 sm:col-span-1 mt-5 md:mt-0">
         <x-filament::card>
 
-            {{ $this->updatePasswordForm }}
+            {{ $this->form }}
+
 
             <x-slot name="footer">
                 <div class="text-right">

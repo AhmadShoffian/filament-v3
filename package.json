@@ -1,13 +1,55 @@
 {
-    "private": true,
-    "type": "module",
-    "scripts": {
-        "dev": "vite",
-        "build": "vite build"
-    },
-    "devDependencies": {
-        "axios": "^1.1.2",
-        "laravel-vite-plugin": "^0.7.5",
-        "vite": "^4.0.0"
-    }
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "axios": "^1.1.2",
+    "laravel-echo": "^2.1.5",
+    "laravel-vite-plugin": "^0.7.5",
+    "postcss": "^8.5.5",
+    "pusher-js": "^8.4.0",
+    "tailwindcss": "^3.4.1",
+    "vite": "^4.0.0"
+  },
+  "name": "helpdesk-app---copy",
+  "version": "1.0.0",
+  "main": "vite.config.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "@tailwindcss/forms": "^0.5.10",
+    "asynckit": "^0.4.0",
+    "browserslist": "^4.25.0",
+    "caniuse-lite": "^1.0.30001722",
+    "combined-stream": "^1.0.8",
+    "delayed-stream": "^1.0.0",
+    "electron-to-chromium": "^1.5.166",
+    "esbuild": "^0.17.19",
+    "escalade": "^3.2.0",
+    "follow-redirects": "^1.15.2",
+    "form-data": "^4.0.0",
+    "fraction.js": "^4.3.7",
+    "mime-db": "^1.52.0",
+    "mime-types": "^2.1.35",
+    "nanoid": "^3.3.11",
+    "node-releases": "^2.0.19",
+    "normalize-range": "^0.1.2",
+    "picocolors": "^1.1.1",
+    "picomatch": "^2.3.1",
+    "postcss-value-parser": "^4.2.0",
+    "proxy-from-env": "^1.1.0",
+    "rollup": "^3.25.1",
+    "source-map-js": "^1.2.1",
+    "update-browserslist-db": "^1.1.3",
+    "vite-plugin-full-reload": "^1.0.5"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }

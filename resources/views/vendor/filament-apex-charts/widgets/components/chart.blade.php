@@ -1,4 +1,13 @@
-@props(['chartId', 'chartOptions', 'contentHeight', 'pollingInterval', 'loadingIndicator', 'deferLoading', 'readyToLoad', 'darkMode'])
+@props([
+    'chartId',
+    'chartOptions',
+    'contentHeight',
+    'pollingInterval',
+    'loadingIndicator',
+    'deferLoading',
+    'readyToLoad',
+    'darkMode',
+])
 
 <div {!! $deferLoading ? ' wire:init="loadWidget" ' : '' !!} class="flex items-center justify-center filament-apex-charts-chart"
     style="{{ $contentHeight ? 'height: ' . $contentHeight . 'px;' : '' }}">
@@ -35,7 +44,8 @@
             @if ($loadingIndicator)
                 {!! $loadingIndicator !!}
             @else
-                <x-filament-support::loading-indicator x-cloak wire:loading.delay class="w-7 h-7" />
+                <div x-cloak wire:loading.delay
+                    class="w-7 h-7 animate-spin border-4 border-amber-500 border-t-transparent rounded-full"></div>
             @endif
         </div>
     @endif

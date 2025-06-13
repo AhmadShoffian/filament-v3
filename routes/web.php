@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KirimCepatController;
 use App\Http\Controllers\Portal\AuthController;
@@ -48,6 +49,9 @@ Route::prefix('portal')->group(function (){
         Route::post('dashboard/create', [DashboardController::class, 'store'])->name('ticket.store');
         Route::get('dashboard/ticket/', [DashboardController::class, 'show'])->name('tickets.show');
         Route::get('dashboard/ticket/{ticket}', [DashboardController::class, 'detail'])->name('tickets.detail');
+
+        // chat
+        Route::get('/chat/{id}', [ChatController::class, 'show'])->name('chat');
 
     });
 
