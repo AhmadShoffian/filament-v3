@@ -40,7 +40,10 @@ class Comment extends Model
         'user_id',
         'comment',
         'attachments',
+        'sender_id',
+        'receiver_id',
     ];
+
 
     public function user()
     {

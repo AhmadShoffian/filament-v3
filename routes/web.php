@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChatController;
@@ -56,7 +57,12 @@ Route::prefix('portal')->group(function () {
         Route::get('dashboard/ticket/{ticket}', [DashboardController::class, 'detail'])->name('tickets.detail');
 
         // chat
-        Route::get('/chat/{id}', [ChatController::class, 'show'])->name('chat');
+        Route::get('/chat/{user_id}/{ticket_id?}', function ($user_id, $ticket_id = null) {
+            return view('chat', [
+                'user_id' => $user_id,
+                'ticket_id' => $ticket_id,
+            ]);
+        })->name('chat');
     });
 });
 

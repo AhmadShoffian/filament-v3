@@ -33,7 +33,7 @@ class TicketCommentsTable extends Component implements HasTable, HasForms
     protected function getTableQuery(): Builder
     {
         return Comment::query()
-            ->where('tiket_id', $this->ticket->id) // Ganti jika kolomnya "ticket_id"
+            ->where('tiket_id', $this->ticket->id) // Ganti jika kolomnya "tilet_id"
             ->latest();
     }
 

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Image extends Model
 {
-    protected $fillable = ['ticket_id', 'filename'];
+    protected $fillable = ['tiket_id', 'filename'];
 
     public function ticket()
     {

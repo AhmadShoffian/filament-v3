@@ -3,45 +3,44 @@
 namespace App\Events;
 
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
-use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-
+use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Foundation\Events\Dispatchable;
 
 class MessageSendEvent implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $comment;
+    public $message;
 
-    public function __construct($comment)
+    public function __construct($message)
     {
-        $this->comment = $comment;
+        $this->message = $message;
     }
 
-    // Channel privat untuk receiver_id
     public function broadcastOn(): array
-{
-    return [
-        new PrivateChannel('chat.' . $this->comment->tiket_id),
-    ];
-}
-
-
-    // Data yang akan dikirim ke frontend
-    public function broadcastWith(): array
     {
         return [
-            'id' => $this->comment->id,
-            'comment' => $this->comment->comment,
-            'sender_id' => $this->comment->sender_id,
-            'receiver_id' => $this->comment->receiver_id,
+            new PrivateChannel('chat-channel.' . $this->message->receiver_id),
         ];
     }
 
-    // Optional: nama event custom
-    public function broadcastAs(): string
+    public function broadcastWith()
+    {
+        return [
+            'message' => [
+                'id' => $this->message->id,
+                'comment' => $this->message->comment,
+                'sender_id' => $this->message->sender_id,
+                'receiver_id' => $this->message->receiver_id,
+                'sender_name' => $this->message->sender->name ?? null,
+                'receiver_name' => $this->message->receiver->name ?? null,
+            ],
+        ];
+    }
+
+    public function broadcastAs()
     {
         return 'message.sent';
     }

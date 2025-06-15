@@ -29,19 +29,34 @@ class TicketCommentForm extends Component
             ->get();
     }
 
-    public function submit()
-    {
-        $this->validate();
+   public function submit()
+{
+    $this->validate();
 
-        Comment::create([
-            'tiket_id' => $this->ticket->id,
-            'user_id' => auth()->id(),
-            'comment' => $this->comment,
-        ]);
+    $ticket = $this->ticket;
 
-        $this->reset('comment');
-        $this->loadComments();
+    // ✅ Tentukan receiver
+    if (auth()->user()->hasAnyRole(['Admin Unit', 'Staf Unit'])) {
+        $receiver = $ticket->owner;
+    } else {
+        $receiver = \App\Models\User::role('Admin Unit')
+            ->orWhereHas('roles', fn ($q) => $q->where('name', 'Staf Unit'))
+            ->first();
     }
+
+    // ✅ Buat komentar
+    $comment = Comment::create([
+        'tiket_id' => $ticket->id,
+        'user_id' => auth()->id(),
+        'comment' => $this->comment,
+        'sender_id' => auth()->id(),
+        'receiver_id' => $receiver?->id, // pakai null-safe untuk jaga-jaga
+    ]);
+
+    $this->reset('comment');
+    $this->loadComments();
+}
+
 
     public function render()
     {

@@ -1,3 +1,4 @@
 <x-app-layout>
-    @livewire('chat-component',['userId' => $id])
+    @livewire('chat-component', ['tiket_id' => $ticket_id])
 </x-app-layout>
+

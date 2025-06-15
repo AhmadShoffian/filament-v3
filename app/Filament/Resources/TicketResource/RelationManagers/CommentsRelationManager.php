@@ -45,72 +45,85 @@ class CommentsRelationManager extends RelationManager
             ]);
     }
 
-public function table(Table $table): Table
-{
-    return $table
-        ->poll('5s') // Untuk tetap realtime jika belum semua sisi pakai listener JS
-        ->columns([
-            Stack::make([
-                Split::make([
-                    TextColumn::make('user.name')
-                        ->translateLabel()
-                        ->weight('bold')
-                        ->grow(false),
-                    TextColumn::make('created_at')
-                        ->translateLabel()
-                        ->dateTime()
-                        ->color('secondary'),
+    public function table(Table $table): Table
+    {
+        return $table
+            ->poll('5s') // Untuk tetap realtime jika belum semua sisi pakai listener JS
+            ->columns([
+                Stack::make([
+                    Split::make([
+                        TextColumn::make('user.name')
+                            ->translateLabel()
+                            ->weight('bold')
+                            ->grow(false),
+                        TextColumn::make('created_at')
+                            ->translateLabel()
+                            ->dateTime()
+                            ->color('secondary'),
+                    ]),
+                    TextColumn::make('comment')
+                        ->wrap()
+                        ->html(),
                 ]),
-                TextColumn::make('comment')
-                    ->wrap()
-                    ->html(),
-            ]),
-        ])
-        ->filters([])
-        ->headerActions([
-            Tables\Actions\CreateAction::make()
-                ->mutateFormDataUsing(function (array $data): array {
-                    $data['user_id'] = auth()->id(); // Set user login sebagai pengirim
-                    return $data;
-                })
-                ->label('Tambah Komentar')
-                ->after(function (Livewire $livewire) {
-                    $ticket = $livewire->ownerRecord;
+            ])
+            ->filters([])
+            ->headerActions([
+                Tables\Actions\CreateAction::make()
+                    ->mutateFormDataUsing(function (array $data, Livewire $livewire): array {
+                        $ticket = $livewire->ownerRecord;
 
-                    // Ambil komentar terakhir (baru saja dibuat)
-                    $comment = $ticket->comments()->latest()->first();
+                        $data['user_id'] = auth()->id();
+                        $data['sender_id'] = auth()->id();
 
-                    // Tentukan penerima
-                    if (auth()->user()->hasAnyRole(['Admin Unit', 'Staf Unit'])) {
-                        $receiver = $ticket->owner; // Kirim ke pemilik tiket
-                    } else {
-                        $receiver = User::role('Admin Unit')
-                            ->orWhereHas('roles', fn($q) => $q->where('name', 'Staf Unit'))
-                            ->first();
-                    }
+                        // Tentukan receiver_id sesuai role
+                        if (auth()->user()->hasAnyRole(['Admin Unit', 'Staf Unit'])) {
+                            $data['receiver_id'] = $ticket->user_id; // user pemilik tiket
+                        } else {
+                            $admin = User::role('Admin Unit')
+                                ->orWhereHas('roles', fn($q) => $q->where('name', 'Staf Unit'))
+                                ->first();
+                            $data['receiver_id'] = $admin?->id;
+                        }
 
-                    // Kirim notifikasi biasa (opsional)
-                    Notification::make()
-                        ->title('Terdapat komentar baru pada tiket Anda')
-                        ->actions([
-                            Action::make('Lihat')
-                                ->url(TicketResource::getUrl('view', ['record' => $ticket->id])),
-                        ])
-                        ->sendToDatabase($receiver);
+                        return $data;
+                    })
+                    ->label('Tambah Komentar')
+                    ->after(function (Livewire $livewire) {
+                        $ticket = $livewire->ownerRecord;
 
-                    // ✅ Kirim broadcast realtime via Reverb
-                    if ($comment) {
-                        broadcast(new MessageSendEvent($comment))->toOthers();
-                    }
-                }),
-        ])
-        ->actions([
-            Tables\Actions\Action::make('attachment')->action(function ($record) {
-                return response()->download('storage/' . $record->attachments);
-            })->hidden(fn ($record) => $record->attachments == ''),
-            Tables\Actions\EditAction::make(),
-        ])
-        ->bulkActions([]);
-}
+                        // Ambil komentar terakhir (baru saja dibuat)
+                        $comment = $ticket->comments()->latest()->first();
 
+                        // Tentukan penerima
+                        if (auth()->user()->hasAnyRole(['Admin Unit', 'Staf Unit'])) {
+                            $receiver = $ticket->owner; // Kirim ke pemilik tiket
+                        } else {
+                            $receiver = User::role('Admin Unit')
+                                ->orWhereHas('roles', fn($q) => $q->where('name', 'Staf Unit'))
+                                ->first();
+                        }
+
+                        // Kirim notifikasi biasa (opsional)
+                        Notification::make()
+                            ->title('Terdapat komentar baru pada tiket Anda')
+                            ->actions([
+                                Action::make('Lihat')
+                                    ->url(TicketResource::getUrl('view', ['record' => $ticket->id])),
+                            ])
+                            ->sendToDatabase($receiver);
+
+                        // ✅ Kirim broadcast realtime via Reverb
+                        if ($comment) {
+                            broadcast(new MessageSendEvent($comment))->toOthers();
+                        }
+                    }),
+            ])
+            ->actions([
+                Tables\Actions\Action::make('attachment')->action(function ($record) {
+                    return response()->download('storage/' . $record->attachments);
+                })->hidden(fn($record) => $record->attachments == ''),
+                Tables\Actions\EditAction::make(),
+            ])
+            ->bulkActions([]);
+    }
 }

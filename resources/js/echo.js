@@ -13,8 +13,4 @@ window.Echo = new Echo({
     enabledTransports: ['ws', 'wss'],
 });
 
-window.Echo.private(`chat.${ticketId}`)
-    .listen('.message.sent', (e) => {
-        Livewire.dispatch('new-message', { message: e });
-    });
 

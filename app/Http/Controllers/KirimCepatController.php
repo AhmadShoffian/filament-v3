@@ -79,7 +79,7 @@ class KirimCepatController extends Controller
             $uploadedFiles = session()->get('uploaded_files', []);
             foreach ($uploadedFiles as $filename) {
                 Image::create([
-                    'ticket_id' => $ticket->id,
+                    'tiket_id' => $ticket->id,
                     'filename' => $filename
                 ]);
             }
