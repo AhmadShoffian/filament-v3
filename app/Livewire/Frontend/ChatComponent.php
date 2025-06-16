@@ -26,7 +26,7 @@ class ChatComponent extends Component
 
     public function loadComments()
     {
-        $this->comments = Comment::where('tiket_id', $this->ticket->id)
+        $this->comments = Comment::where('ticket_id', $this->ticket->id)
             ->with('user')
             ->latest()
             ->get()
@@ -55,7 +55,7 @@ class ChatComponent extends Component
 
     // ✅ Simpan komentar
     $comment = Comment::create([
-        'tiket_id' => $ticket->id,
+        'ticket_id' => $ticket->id,
         'user_id' => auth()->id(),
         'comment' => $this->comment,
         'sender_id' => auth()->id(),

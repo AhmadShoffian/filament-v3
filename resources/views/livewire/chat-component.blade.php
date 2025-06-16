@@ -17,7 +17,8 @@
             />
           </svg>
         </a>
-        <div class="my-3 text-green-100 font-bold text-lg tracking-wide">{{ $user->name }}</div>
+        <div class="my-3 text-green-100 font-bold text-lg tracking-wide">{{ $user?->name ?? 'Guest' }}</div>
+
         <!-- 3 dots -->
         <svg
           xmlns="http://www.w3.org/2000/svg"

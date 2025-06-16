@@ -141,7 +141,7 @@ class Ticket extends Model
      */
     public function comments()
     {
-        return $this->hasMany(Comment::class, 'tiket_id');
+        return $this->hasMany(Comment::class, 'ticket_id');
     }
 
     public function peran()

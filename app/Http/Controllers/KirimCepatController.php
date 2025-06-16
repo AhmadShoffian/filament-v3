@@ -79,7 +79,7 @@ class KirimCepatController extends Controller
             $uploadedFiles = session()->get('uploaded_files', []);
             foreach ($uploadedFiles as $filename) {
                 Image::create([
-                    'tiket_id' => $ticket->id,
+                    'ticket_id' => $ticket->id,
                     'filename' => $filename
                 ]);
             }
@@ -115,7 +115,7 @@ class KirimCepatController extends Controller
         $filename = time() . '_' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
         $file->move(public_path("images"), $filename);
 
-        // Simpan nama file ke session (belum ada tiket_id saat ini)
+        // Simpan nama file ke session (belum ada ticket_id saat ini)
         $uploadedFiles = session()->get('uploaded_files', []);
         $uploadedFiles[] = $filename;
         session()->put('uploaded_files', $uploadedFiles);

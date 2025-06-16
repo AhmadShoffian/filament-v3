@@ -538,7 +538,7 @@
                                                             Baru</button>
                                                         @foreach ($users as $user)
                                                             @if ($user->id !== auth()->id())
-                                                                <a href="{{ route('chat', ['user_id' => $user->id, 'tiket_id' => $ticket->id]) }}"
+                                                                <a href="{{ route('chat', ['ticket_id' => $ticket->id]) }}"
                                                                     class="btn btn-primary">
                                                                     Chat dengan {{ $user->name }}
                                                                 </a>
@@ -560,7 +560,7 @@
 
                         <!-- Start Blog Singel Area -->
 
-                        <livewire:chat-component :user_id="$user->id" />
+                        <livewire:chat-component :ticket_id="$user->id" />
 
 
 

@@ -57,9 +57,8 @@ Route::prefix('portal')->group(function () {
         Route::get('dashboard/ticket/{ticket}', [DashboardController::class, 'detail'])->name('tickets.detail');
 
         // chat
-        Route::get('/chat/{user_id}/{ticket_id?}', function ($user_id, $ticket_id = null) {
+        Route::get('/chat/{ticket_id?}', function ($ticket_id) {
             return view('chat', [
-                'user_id' => $user_id,
                 'ticket_id' => $ticket_id,
             ]);
         })->name('chat');

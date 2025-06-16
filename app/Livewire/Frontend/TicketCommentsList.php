@@ -20,7 +20,7 @@ class TicketCommentsList extends Component
 
     public function loadComments()
     {
-        $this->comments = Comment::where('tiket_id', $this->ticket->id)
+        $this->comments = Comment::where('ticket_id', $this->ticket->id)
             ->latest()
             ->get();
     }

@@ -1,4 +1,3 @@
 <x-app-layout>
-    @livewire('chat-component', ['tiket_id' => $ticket_id])
+    <livewire:chat-component :ticket_id="$ticket_id" />
 </x-app-layout>
-

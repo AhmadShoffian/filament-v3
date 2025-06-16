@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * Class Comment.
  *
  * @property int $id
- * @property int $tiket_id
+ * @property int $ticket_id
  * @property int $user_id
  * @property string $comment
  * @property null|Carbon $created_at
@@ -31,12 +31,12 @@ class Comment extends Model
     public $timestamps = true;
 
     protected $casts = [
-        'tiket_id' => 'int',
+        'ticket_id' => 'int',
         'user_id' => 'int',
     ];
 
     protected $fillable = [
-        'tiket_id',
+        'ticket_id',
         'user_id',
         'comment',
         'attachments',
@@ -52,7 +52,7 @@ class Comment extends Model
 
     public function ticket()
     {
-        return $this->belongsTo(Ticket::class, 'tiket_id');
+        return $this->belongsTo(Ticket::class, 'ticket_id');
     }
 
     public function sender()
