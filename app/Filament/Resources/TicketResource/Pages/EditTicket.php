@@ -19,4 +19,17 @@ class EditTicket extends EditRecord
             Actions\RestoreAction::make(),
         ];
     }
+
+    // Jika pakai Filament 3
+public function afterSave(): void
+{
+    activity()
+        ->performedOn($this->record)
+        ->causedBy(auth()->user())
+        ->withProperties([
+            'status' => $this->record->status->name ?? 'Unknown', // atau ticket_statuses_id
+            'message' => 'Status diperbarui oleh admin',
+        ])
+        ->log('Tiket diperbarui');
+}
 }

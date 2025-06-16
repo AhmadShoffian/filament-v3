@@ -555,12 +555,27 @@
                                         </div>
                                     </div>
                             </div>
-                        </div>
+                        </div><br><br>
 
 
                         <!-- Start Blog Singel Area -->
 
-                        <livewire:chat-component :ticket_id="$user->id" />
+                        {{-- <livewire:chat-component :ticket_id="$user->id" /> --}}
+
+                        <livewire:show-ticket-activity :ticketId="$ticket->id" />
+
+                        <form action="" method="POST"
+                            onsubmit="return confirm('Apakah Anda yakin ingin menutup tiket ini?')">
+                            @csrf
+                            <button type="submit"
+                                class="mt-4 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition">
+                                Tutup Tiket
+                            </button>
+                        </form>
+
+
+
+
 
 
 

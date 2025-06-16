@@ -5,6 +5,10 @@ namespace App\Filament\Resources\TicketResource\Pages;
 use App\Filament\Resources\TicketResource;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\ViewRecord;
+use Spatie\Activitylog\Models\Activity;
+use Filament\Infolists\Components\RepeatableEntry;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Components\Section;
 
 class ViewTicket extends ViewRecord
 {
@@ -14,6 +18,57 @@ class ViewTicket extends ViewRecord
     {
         return [
             Actions\EditAction::make(),
+        ];
+    }
+
+    public function getInfolistSchema(): array
+    {
+        return [
+            Section::make('Informasi Tiket')
+                ->schema([
+                    TextEntry::make('username')->label('Nama Pengguna'),
+                    TextEntry::make('email')->label('Email'),
+                    TextEntry::make('title')->label('Judul Tiket'),
+                    TextEntry::make('description')->label('Deskripsi'),
+                ])
+                ->columns(2),
+
+            Section::make('Riwayat Pekerjaan')
+                ->schema([
+                    RepeatableEntry::make('log_history')
+                        ->label('Riwayat')
+                        ->state(function ($record) {
+                            return Activity::query()
+                                ->where('subject_type', get_class($record))
+                                ->where('subject_id', $record->id)
+                                ->latest()
+                                ->get()
+                                ->map(function ($log) {
+                                    return [
+                                        'created_at' => $log->created_at->format('d-m-Y / H:i:s'),
+                                        'description' => $log->description,
+                                        'status' => $log->properties['status'] ?? null,
+                                        'message' => $log->properties['message'] ?? null,
+                                    ];
+                                })->toArray();
+                        })
+                        ->schema([
+                            TextEntry::make('created_at')->label('Waktu'),
+                            TextEntry::make('description')->label('Aksi'),
+                            TextEntry::make('status')
+                                ->label('Status')
+                                ->badge()
+                                ->color(fn ($state) => match ($state) {
+                                    'Open' => 'success',
+                                    'Processed' => 'warning',
+                                    'Closed' => 'danger',
+                                    default => 'gray',
+                                }),
+                            TextEntry::make('message')->label('Keterangan'),
+                        ])
+                        ->columns(2)
+                        ->visible(fn ($record) => $record !== null),
+                ]),
         ];
     }
 }

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\TicketController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KirimCepatController;
 use App\Http\Controllers\Portal\AuthController;
@@ -49,12 +50,17 @@ Route::prefix('portal')->group(function () {
     Route::get('kirim-cepat/kirim-cepat/{ticket}', [KirimCepatController::class, 'kcdetail'])->name('portal.kcdetail');
 
 
+    Route::get('/tickets/{ticket}/history', [TicketController::class, 'history']);
+
+
     Route::middleware(['auth:portal'])->group(function () {
         Route::get('/home/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('dashboard/create', [DashboardController::class, 'create'])->name('ticket.create');
         Route::post('dashboard/create', [DashboardController::class, 'store'])->name('ticket.store');
         Route::get('dashboard/ticket/', [DashboardController::class, 'show'])->name('tickets.show');
         Route::get('dashboard/ticket/{ticket}', [DashboardController::class, 'detail'])->name('tickets.detail');
+
+        Route::post('/tickets/{ticket}/close', [TicketController::class, 'close'])->name('tickets.close');
 
         // chat
         Route::get('/chat/{ticket_id?}', function ($ticket_id) {

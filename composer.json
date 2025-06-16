@@ -21,6 +21,7 @@
         "laravel/tinker": "^2.8",
         "leandrocfe/filament-apex-charts": "*",
         "owenvoke/blade-fontawesome": "^2.3",
+        "spatie/laravel-activitylog": "^4.10",
         "spatie/laravel-permission": "^6.0",
         "stechstudio/filament-impersonate": "^3.16"
     },

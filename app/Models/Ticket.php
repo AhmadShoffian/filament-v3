@@ -6,10 +6,16 @@
 
 namespace App\Models;
 
+use LogsActivity;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Collection;
+use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Models\Activity;
+
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
+    
 
 /**
  * Class Ticket.
@@ -39,6 +45,13 @@ class Ticket extends Model
 {
     use SoftDeletes;
     protected $table = 'tickets';
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['title', 'description'])
+            ->useLogName('ticket');
+    }
 
     protected $casts = [
         'priority_id' => 'int',
@@ -159,6 +172,10 @@ class Ticket extends Model
         return $this->hasMany(Image::class);
     }
 
-
+    public function activities()
+    {
+        return Activity::where('subject_type', self::class)
+            ->where('subject_id', $this->id);
+    }
 
 }
