@@ -13,6 +13,7 @@ class ChatComponent extends Component
 {
     public $user;
     public $sender_id;
+    public $ticket;
     public $ticket_id;
     public $receiver_id;
     public $comment = '';
@@ -26,51 +27,26 @@ class ChatComponent extends Component
 
     public function mount($ticket_id)
     {
-        if (!$ticket_id) {
-            throw new \Exception('ticket_id tidak dikirim ke Livewire.');
-        }
-
         $this->sender_id = auth()->id();
-        $this->ticket_id = $ticket_id;
+        $this->ticket = Ticket::findOrFail($ticket_id);
 
-        // Ambil data ticket
-        $ticket = \App\Models\Ticket::findOrFail($ticket_id);
-
-        // Tentukan receiver_id dari relasi
-        if ($ticket->owner_id == $this->sender_id) {
-            if ($ticket->assigned_to_id && $ticket->assigned_to_id != $this->sender_id) {
-                $this->receiver_id = $ticket->assigned_to_id;
-            } else {
-                throw new \Exception('Ticket belum ditugaskan atau Anda tidak bisa mengirim ke diri sendiri.');
-            }
+        // ✅ Tentukan receiver berdasarkan role
+        if (auth()->user()->hasAnyRole(['Admin Unit', 'Staf Unit'])) {
+            $this->receiver_id = $this->ticket->owner_id;
         } else {
-            $this->receiver_id = $ticket->owner_id;
+            $this->receiver_id = User::role('Admin Unit')
+                ->orWhereHas('roles', fn($q) => $q->where('name', 'Staf Unit'))
+                ->first()?->id;
         }
 
-
-
-
-
-
-        // Set lawan bicara
-        $this->user = \App\Models\User::find($this->receiver_id);
-
-        // Ambil riwayat chat
-        $messages = Comment::where(function ($query) {
-            $query->where(function ($q) {
-                $q->where('sender_id', $this->sender_id)
-                    ->where('receiver_id', $this->receiver_id);
-            })->orWhere(function ($q) {
-                $q->where('sender_id', $this->receiver_id)
-                    ->where('receiver_id', $this->sender_id);
-            });
-        })
-            ->where('ticket_id', $this->ticket_id)
+        // ✅ Ambil komentar berdasarkan tiket
+        $comments = Comment::where('ticket_id', $this->ticket->id)
             ->with('sender:id,name', 'receiver:id,name')
+            ->orderBy('created_at', 'asc')
             ->get();
 
-        foreach ($messages as $message) {
-            $this->appendChatMessage($message);
+        foreach ($comments as $comment) {
+            $this->appendChatMessage($comment);
         }
     }
 
