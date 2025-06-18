@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use Filament\Pages;
+use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Filament\Panel;
 use Filament\Widgets;
 use Filament\PanelProvider;
@@ -33,6 +34,7 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Amber,
             ])
+            ->databaseNotifications()
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
@@ -45,8 +47,7 @@ class AdminPanelProvider extends PanelProvider
                 \App\Filament\Widgets\TicketStatusesChart::class, // ✅ Tambahkan di sini
             ])
             ->plugins([
-                BreezyCore::make()
-                    ->myProfile()
+                \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
                 // ->twoFactorAuthentication() // Aktifkan jika Breezy versimu mendukung ini
             ])
             ->middleware([

@@ -547,8 +547,14 @@
                                                         <button type="button" class="btn btn-danger">Kembali</button>
                                                         <button type="button" class="btn btn-primary">Buat Tiket
                                                             Baru</button>
-                                                        <button type="button" class="btn btn-secondary">Bantuan
-                                                        </button>
+                                                        @foreach ($users as $user)
+                                                            @if ($user->id !== auth()->id())
+                                                                <a href="{{ route('chat', ['ticket_id' => $ticket->id]) }}"
+                                                                    class="btn btn-primary">
+                                                                    Chat dengan {{ $user->name }}
+                                                                </a>
+                                                            @endif
+                                                        @endforeach
                                                     </div>
                                                 </div>
                                             </div>
@@ -556,6 +562,14 @@
                                     </div>
                             </div>
                         </div>
+
+
+                        {{-- <livewire:chat-component :ticket_id="$user->id" /> --}}
+
+                        <livewire:show-ticket-activity :ticketId="$ticket->id" />
+
+
+
                         <!-- Start Comments -->
                         {{-- <div class="post-comments">
                             <h3 class="comment-title"><span>02 Comments on this post</span></h3>

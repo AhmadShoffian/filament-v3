@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\TicketController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KirimCepatController;
 use App\Http\Controllers\Portal\AuthController;
@@ -40,6 +41,9 @@ Route::prefix('portal')->group(function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('portal.login');
     Route::post('/login', [AuthController::class, 'login']);
 
+    Route::get('/register', [RegisterController::class, 'show'])->name('register');
+    Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
+
     Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
     Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
 
@@ -47,10 +51,11 @@ Route::prefix('portal')->group(function () {
     Route::post('/upload-lampiran', [KirimCepatController::class, 'uploadLampiran'])->name('upload.lampiran');
     Route::post('/kirim-cepat/store', [KirimCepatController::class, 'store'])->name('portal.kirimcepat.store');
     Route::get('/kirim-cepat/view', [KirimCepatController::class, 'viewKirimCepat'])->name('portal.viewKirimCepat');
-    Route::get('kirim-cepat/kirim-cepat/{ticket}', [KirimCepatController::class, 'kcdetail'])->name('portal.kcdetail');
+    Route::get('/kirim-cepat/{ticket:uuid}', [KirimCepatController::class, 'kcdetail'])->name('portal.kcdetail');
 
+    // Route::get('/tickets/{ticket}/history', [TicketController::class, 'history']);
+    Route::get('/tickets/{id}', [TicketController::class, 'show'])->name('frontend.ticket.show');
 
-    Route::get('/tickets/{ticket}/history', [TicketController::class, 'history']);
 
 
     Route::middleware(['auth:portal'])->group(function () {

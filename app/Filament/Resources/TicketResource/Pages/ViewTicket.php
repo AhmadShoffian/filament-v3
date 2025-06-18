@@ -2,13 +2,14 @@
 
 namespace App\Filament\Resources\TicketResource\Pages;
 
-use App\Filament\Resources\TicketResource;
 use Filament\Pages\Actions;
-use Filament\Resources\Pages\ViewRecord;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Activitylog\Models\Activity;
-use Filament\Infolists\Components\RepeatableEntry;
-use Filament\Infolists\Components\TextEntry;
+use Filament\Resources\Pages\ViewRecord;
+use App\Filament\Resources\TicketResource;
 use Filament\Infolists\Components\Section;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Components\RepeatableEntry;
 
 class ViewTicket extends ViewRecord
 {
@@ -58,7 +59,7 @@ class ViewTicket extends ViewRecord
                             TextEntry::make('status')
                                 ->label('Status')
                                 ->badge()
-                                ->color(fn ($state) => match ($state) {
+                                ->color(fn($state) => match ($state) {
                                     'Open' => 'success',
                                     'Processed' => 'warning',
                                     'Closed' => 'danger',
@@ -67,8 +68,25 @@ class ViewTicket extends ViewRecord
                             TextEntry::make('message')->label('Keterangan'),
                         ])
                         ->columns(2)
-                        ->visible(fn ($record) => $record !== null),
+                        ->visible(fn($record) => $record !== null),
                 ]),
+
+            Section::make('Penyelesaian Tiket')
+                ->schema([
+                    TextEntry::make('catatan_penyelesaian')
+                        ->label('Deskripsi Penyelesaian')
+                        ->markdown()
+                        ->visible(fn($record) => filled($record->catatan_penyelesaian)),
+
+                    TextEntry::make('gambar_penyelesaian')
+                        ->label('Lampiran Gambar')
+                        ->visible(fn($record) => filled($record->gambar_penyelesaian))
+                        ->formatStateUsing(fn($state) => '<img src="' . Storage::url($state) . '" class="w-32 rounded shadow">')
+                        ->html(),
+                ])
+                ->visible(fn($record) => filled($record->catatan_penyelesaian))
+                ->columns(1),
+
         ];
     }
 }

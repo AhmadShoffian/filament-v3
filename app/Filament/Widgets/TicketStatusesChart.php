@@ -8,25 +8,25 @@ use Leandrocfe\FilamentApexCharts\Widgets\ApexChartWidget;
 class TicketStatusesChart extends ApexChartWidget
 {
     protected static ?string $chartId = 'ticketStatusesChart';
+    protected static ?string $heading = 'Statistik Tiket Berdasarkan Status';
 
-    protected static ?string $heading = 'Ticket Statuses';
+    protected static string $color = 'primary'; // Warna header widget (opsional)
+
+    protected int|string|array $columnSpan = 1; // Jika pakai grid di dashboard
 
     protected function getOptions(): array
     {
-        $ticketStatuses = TicketStatus::select('id', 'name')->withCount(['tickets'])->get();
+        $statuses = TicketStatus::withCount('tickets')->get();
 
         return [
             'chart' => [
-                'type' => 'pie',
+                'type' => 'donut', // atau 'pie'
                 'height' => 300,
             ],
-            'series' => $ticketStatuses->pluck('tickets_count')->toArray(),
-            'labels' => $ticketStatuses->pluck('name')->toArray(),
+            'labels' => $statuses->pluck('name')->toArray(),
+            'series' => $statuses->pluck('tickets_count')->toArray(),
             'legend' => [
-                'labels' => [
-                    'colors' => '#9ca3af',
-                    'fontWeight' => 600,
-                ],
+                'position' => 'bottom',
             ],
         ];
     }

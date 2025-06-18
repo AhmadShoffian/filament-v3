@@ -19,8 +19,12 @@ use Forms\Components\FileUpload;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Tabs\Tab;
 use Illuminate\Support\Facades\Storage;
+use App\Filament\Exports\TicketExporter;
+use Filament\Tables\Actions\ExportAction;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Tables\Actions\ExportBulkAction;
 use App\Filament\Resources\TicketResource\Pages;
+use Filament\Actions\Exports\Enums\ExportFormat;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\TicketResource\RelationManagers\CommentsRelationManager;
 
@@ -244,11 +248,19 @@ class TicketResource extends Resource
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
+            ->headerActions([
+                ExportAction::make()->exporter(TicketExporter::class)->formats([
+                    ExportFormat::Csv
+                ])
+            ])
             
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
                 Tables\Actions\ForceDeleteBulkAction::make(),
                 Tables\Actions\RestoreBulkAction::make(),
+                ExportBulkAction::make()->exporter(TicketExporter::class)->formats([
+                    ExportFormat::Csv
+                ])
             ])
             ->defaultSort('created_at', 'desc');
     }

@@ -190,14 +190,12 @@
                                                 #{{ $ticket->id }}</a>
                                         </div>
                                         <h4>
-                                            <a
-                                                href="{{ route('tickets.show', $ticket->id) }}">{{ $ticket->title }}</a>
+                                            <a href="{{ route('tickets.show', $ticket->id) }}">{{ $ticket->title }}</a>
                                         </h4>
                                         <p>{{ Str::limit($ticket->description, 100) }}</p>
 
                                         <!-- Tombol Detail -->
-                                        <a href="{{ route('portal.kcdetail', $ticket->id) }}"
-                                            class="btn btn-primary mt-2">Detail</a>
+<a href="{{ route('portal.kcdetail', ['ticket' => $ticket->uuid]) }}" class="btn btn-primary mt-2">Detail</a>
                                     </div>
                                 </div>
                                 <!-- End Single Blog Grid -->

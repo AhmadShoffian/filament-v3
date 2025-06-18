@@ -10,6 +10,7 @@ use App\Models\Priority;
 use App\Models\UnitKerja;
 use Illuminate\Http\Request;
 use App\Models\ProblemCategory;
+use App\Models\User;
 
 class KirimCepatController extends Controller
 {
@@ -105,31 +106,32 @@ class KirimCepatController extends Controller
 
     public function kcdetail(Ticket $ticket)
     {
-        return view('portal.kirimcepat.detail', compact('ticket'));
+        $users = User::all();
+        return view('portal.kirimcepat.detail', compact('ticket','users'));
     }
+
 
     public function uploadLampiran(Request $request)
-{
-    if ($request->hasFile('file')) {
-        $file = $request->file('file');
-        $filename = time() . '_' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
-        $file->move(public_path("images"), $filename);
+    {
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $filename = time() . '_' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path("images"), $filename);
 
-        // Simpan nama file ke session (belum ada ticket_id saat ini)
-        $uploadedFiles = session()->get('uploaded_files', []);
-        $uploadedFiles[] = $filename;
-        session()->put('uploaded_files', $uploadedFiles);
+            // Simpan nama file ke session (belum ada ticket_id saat ini)
+            $uploadedFiles = session()->get('uploaded_files', []);
+            $uploadedFiles[] = $filename;
+            session()->put('uploaded_files', $uploadedFiles);
+
+            return response()->json([
+                'success' => true,
+                'filename' => $filename
+            ]);
+        }
 
         return response()->json([
-            'success' => true,
-            'filename' => $filename
-        ]);
+            'success' => false,
+            'message' => 'Tidak ada file ditemukan.'
+        ], 400);
     }
-
-    return response()->json([
-        'success' => false,
-        'message' => 'Tidak ada file ditemukan.'
-    ], 400);
-}
-
 }

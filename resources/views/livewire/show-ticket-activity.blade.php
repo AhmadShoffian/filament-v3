@@ -1,49 +1,34 @@
-<div>
-    <div class="mt-4 border rounded p-3">
-        <h5 class="fw-bold mb-3">Riwayat Pekerjaan</h5>
 
-        @forelse ($logs as $log)
-            <div class="d-flex justify-content-between border-bottom py-2">
-                <div>
-                    <span class="text-muted">[{{ $log->created_at->format('d-m-Y / H:i:s') }}]</span> -
-                    Ticket Status :
-                    @php
-                        $status = strtolower($log->properties['status'] ?? '');
-                        $color = match($status) {
-                            'open' => 'text-success',
-                            'processed' => 'text-warning',
-                            'closed' => 'text-danger',
-                            default => 'text-secondary'
-                        };
-                    @endphp
-                    <span class="fw-bold {{ $color }}">
-                        {{ ucfirst($log->properties['status'] ?? 'Unknown') }}
-                    </span>
-                    <br>
-                    <small class="text-muted">{{ $log->description }}</small>
-                </div>
-                <div class="text-end small text-muted">
-                    {{ $log->properties['message'] ?? '-' }}
-                </div>
-            </div>
-        @empty
-            <div class="text-muted">Belum ada riwayat untuk tiket ini.</div>
-        @endforelse
+<div class="max-w-3xl mx-auto mt-8">
+    <h2 class="text-2xl font-bold mb-4">Detail Tiket: {{ $ticket->title }}</h2>
+
+    <div class="bg-white rounded shadow p-4">
+        <p><strong>Deskripsi:</strong> {{ $ticket->description }}</p>
+        <p><strong>Status:</strong> {{ $ticket->status_id == 3 ? 'Closed' : 'Open/Proses' }}</p>
     </div>
 
-    @if(strtolower($ticket->status) !== 'closed')
-        <form method="POST" action="{{ route('tickets.close', $ticket->id) }}" class="mt-3 text-center">
-            @csrf
-            @method('PUT')
-            <button type="submit" class="btn btn-danger px-4">
-                CLOSE TICKET
-            </button>
-        </form>
-    @else
-        <div class="mt-3 text-center">
-            <button class="btn btn-secondary px-4" disabled>
-                Ticket Closed
-            </button>
-        </div>
-    @endif
+    <h3 class="text-lg font-semibold mt-6">Riwayat Aktivitas</h3>
+
+    <ul class="mt-2 space-y-3">
+        @forelse ($logs as $log)
+            <li class="bg-gray-100 p-3 rounded">
+                <div class="text-sm text-gray-700">
+                    <span class="font-medium">{{ $log->created_at->format('d-m-Y H:i') }}</span> –
+                    <span class="font-semibold">{{ $log->causer->name ?? 'System' }}</span>
+                    melakukan <span class="italic">{{ $log->description }}</span>
+                </div>
+                <div class="text-sm mt-1">
+                    {{ $log->properties['message'] ?? '-' }}
+                </div>
+                @if (!empty($log->properties['status']))
+                    <span class="text-xs bg-blue-200 text-blue-800 px-2 py-1 rounded mt-1 inline-block">
+                        Status: {{ $log->properties['status'] }}
+                    </span>
+                @endif
+            </li>
+        @empty
+            <li class="text-gray-500">Belum ada aktivitas tercatat.</li>
+        @endforelse
+    </ul>
 </div>
+

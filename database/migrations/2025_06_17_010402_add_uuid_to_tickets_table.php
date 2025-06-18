@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('comments', function (Blueprint $table) {
-            $table->renameColumn('tiket_id', 'ticket_id');
+        Schema::table('tickets', function (Blueprint $table) {
+            $table->uuid('uuid')->unique()->nullable()->after('id');
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('comments', function (Blueprint $table) {
-            $table->renameColumn('tiket_id', 'ticket_id');
+        Schema::table('tickets', function (Blueprint $table) {
+            $table->dropColumn('uuid');
         });
     }
 };

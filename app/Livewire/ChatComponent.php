@@ -27,7 +27,6 @@ class ChatComponent extends Component
 
     public function mount($ticket_id)
     {
-        $this->ticket_id = $ticket_id;
         $this->sender_id = auth()->id();
         $this->ticket = Ticket::findOrFail($ticket_id);
 

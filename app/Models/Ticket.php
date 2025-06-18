@@ -6,16 +6,16 @@
 
 namespace App\Models;
 
-use LogsActivity;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Models\Activity;
 
+use Illuminate\Notifications\Notifiable;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
-    
 
 /**
  * Class Ticket.
@@ -44,13 +44,24 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Ticket extends Model
 {
     use SoftDeletes;
+    use Notifiable;
+    use LogsActivity;
     protected $table = 'tickets';
+
+    protected static function booted(): void
+    {
+        static::creating(function ($ticket) {
+            $ticket->uuid = Str::uuid();
+        });
+    }
 
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logOnly(['title', 'description'])
-            ->useLogName('ticket');
+            ->logOnly(['title', 'description','catatan_penyelesaian'])
+            ->logOnlyDirty()
+            ->useLogName('ticket')
+            ->setDescriptionForEvent(fn(string $eventName) => "Tiket $eventName");
     }
 
     protected $casts = [
@@ -77,6 +88,7 @@ class Ticket extends Model
         'source',
         'problem_category_id',
         'title',
+        'catatan_penyelesaian',
         'username',
         'email',
         'description',
@@ -177,5 +189,4 @@ class Ticket extends Model
         return Activity::where('subject_type', self::class)
             ->where('subject_id', $this->id);
     }
-
 }
